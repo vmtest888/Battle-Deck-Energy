@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c0e31bestijka" path="res://Scenes/ForkPanel/ForkPanel.gd" id="2_ualbi"]
 [ext_resource type="FontFile" uid="uid://ok2o6260fdve" path="res://Themes/Fonts/Labels/PanelHeaderDynamicFont.tres" id="3_llt0p"]
 [ext_resource type="Texture2D" uid="uid://jqtg5xsd4imi" path="res://Assets/Mixed/UI/person.svg" id="4_jeudq"]
+[ext_resource type="PackedScene" uid="uid://bdl4cjdydve2l" path="res://Scenes/LevelProgress/level_progress.tscn" id="5_7x6cb"]
 
 [node name="ForkPanel" type="Control" unique_id=1346010683]
 custom_minimum_size = Vector2(500, 360)
@@ -190,6 +191,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 text = "Go Right"
+
+[node name="LevelProgress" parent="MarginContainer" unique_id=7705098 instance=ExtResource("5_7x6cb")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OptionsContainer/HBoxContainer/LeftVBoxContainer/LeftButton" to="." method="_on_left_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OptionsContainer/HBoxContainer/RightVBoxContainer/RightButton" to="." method="_on_right_button_pressed"]

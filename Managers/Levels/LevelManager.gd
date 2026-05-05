@@ -15,3 +15,7 @@ func advance():
 func get_current_level():
 	var level_index = current_level % paths.size()
 	return load(paths[level_index])
+
+func get_next_levels(count := 3) -> Array[String]:
+	var level_index = current_level % paths.size()
+	return paths.slice(level_index, level_index+count)
