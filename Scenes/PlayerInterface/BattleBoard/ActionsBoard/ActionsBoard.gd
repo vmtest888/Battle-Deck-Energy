@@ -123,8 +123,8 @@ func get_opportunity_container(opportunity:OpportunityData) -> Control:
 		return
 	return opportunity_container_map[opportunity]
 
-func get_character_sourced_opportunities(character:CharacterData) -> Array:
-	var character_opportunities : Array
+func get_character_sourced_opportunities(character:CharacterData) -> Array[OpportunityData]:
+	var character_opportunities : Array[OpportunityData]
 	for opportunity in opportunities:
 		if opportunity.source == character:
 			character_opportunities.append(opportunity)

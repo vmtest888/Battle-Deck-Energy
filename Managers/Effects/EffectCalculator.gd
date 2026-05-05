@@ -96,20 +96,27 @@ static func _get_value_modified(value:float, modifier_type:String, modifier_valu
 			return value * MOD_DOWN_RATIO
 	return value
 
-static func _mod_effect_total_by_statuses(total : float, status_types : Array, statuses : Array):
+static func _mod_effect_total_by_statuses(total:float, status_types:Array, statuses:Array):
 	for status_type in status_types:
 		for status in statuses:
 			if status is StatusData and status.type_tag == status_type:
 				total = _get_value_modified(total, status_type, status.get_stack_value())
 	return total
 
-static func get_effect_total(base_value:int, type_tag:String, source_statuses:Array, target_statuses=null):
+static func _mod_total_by_opportunities(value:float, type_tag:String, opportunities:Array) -> float:
+	if type_tag == COMBO_EFFECT:
+		value = opportunities.size()
+	return value
+
+static func get_effect_total(base_value:int, type_tag:String, source_statuses:Array, target_statuses:Array = [null], opportunities:Array = [null]):
 	var total = float(base_value)
 	var source_status_types = _get_source_status_types(type_tag)
 	total = _mod_effect_total_by_statuses(total, source_status_types, source_statuses)
-	if target_statuses != null:
+	if (not target_statuses.is_empty()) and target_statuses[0] != null:
 		var target_status_types = _get_target_status_types(type_tag)
 		total = _mod_effect_total_by_statuses(total, target_status_types, target_statuses)
+	if (not opportunities.is_empty()) and opportunities[0] != null:
+		total = _mod_total_by_opportunities(total, type_tag, opportunities)
 	return int(total)
 
 static func get_playable_types(card_data:CardData):

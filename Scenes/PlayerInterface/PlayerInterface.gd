@@ -11,19 +11,19 @@ signal card_played_on_opportunity(card, opportunity)
 
 enum AnimationType{NONE, DRAWING_FROM_DRAW_PILE, DRAWING_INTO_HAND, SHIFTING, DISCARDING, EXHAUSTING, RESHUFFLING, DRAGGING, PLAYING}
 
-@export var opportunity_snap_range = 200.0 # (float, 0, 512)
+@export var opportunity_snap_range := 200.0 # (float, 0, 512)
 
-@onready var animation_queue : Node = $BattleAnimationQueue
-@onready var card_manager : CardManager = $HandContainer/CardControl/BattleCardManager
-@onready var opponent_card_manager : CardManager = $HandContainer/CardControl/InspectorCardManager
-@onready var hand_manager : Node2D = $HandContainer/CardControl/HandManager
-@onready var player_board : Control = $BattleBoard/MarginContainer/VBoxContainer/PlayerBoard
-@onready var actions_board : Control = $BattleBoard/MarginContainer/VBoxContainer/ActionsBoard
-@onready var draw_pile : Control = $BattleBoard/MarginContainer/VBoxContainer/PlayerBoard/DrawPile
-@onready var discard_pile : Control = $BattleBoard/MarginContainer/VBoxContainer/PlayerBoard/DiscardPile
-@onready var exhaust_pile : Control = $BattleBoard/MarginContainer/VBoxContainer/PlayerBoard/ExhaustPile
-@onready var status_update_container : Control = $StatusUpdatesContainer
-@onready var shuffle_audio_player = $ShuffleAudioStreamPlayer2D
+@onready var animation_queue := $BattleAnimationQueue
+@onready var hand_manager := %HandManager
+@onready var card_manager := %BattleCardManager
+@onready var opponent_card_manager := %OpponentCardManager
+@onready var actions_board := %ActionsBoard
+@onready var player_board := %PlayerBoard
+@onready var draw_pile := %PlayerBoard/DrawPile
+@onready var discard_pile := %PlayerBoard/DiscardPile
+@onready var exhaust_pile := %PlayerBoard/ExhaustPile
+@onready var status_update_container := $StatusUpdatesContainer
+@onready var shuffle_audio_player := $ShuffleAudioStreamPlayer2D
 
 var effect_calculator = preload("res://Managers/Effects/EffectCalculator.gd")
 var effect_text_animation_scene = preload("res://Scenes/PlayerInterface/BattleBoard/ActionsBoard/StatusTextAnimation/StatusTextAnimation.tscn")
@@ -121,7 +121,7 @@ func _on_CardContainer_update_opportunity(opportunity:OpportunityData, container
 		card_manager.force_move_card(opportunity.card_data, opportunity.transform_data, 0.05)
 		opponent_card_manager.force_move_card(opportunity.card_data, opportunity.transform_data, 0.05)
 
-func _calculate_card_mod(card_instance:CardNode2D, source = null, target = null):
+func _calculate_card_mod(card_instance:CardNode2D, source:CharacterData = null, target:CharacterData = null):
 	var total_values : Dictionary = {}
 	for effect in card_instance.card_data.effects:
 		var base_value = effect.amount
@@ -131,10 +131,12 @@ func _calculate_card_mod(card_instance:CardNode2D, source = null, target = null)
 		var source_statuses : Array = []
 		if source and source in _character_statuses_map and card_instance.card_data.type != CardData.CardType.STRESS:
 			source_statuses = _character_statuses_map[source].values()
-		var target_statuses : Array = []
+		var target_statuses : Array = [null]
+		var opportunities : Array[OpportunityData] = [null]
 		if target and target in _character_statuses_map:
 			target_statuses = _character_statuses_map[target].values()
-		var total_value = effect_calculator.get_effect_total(base_value, type_tag, source_statuses, target_statuses)
+			opportunities = get_target_type_opportunities(card_instance.card_data, target)
+		var total_value = effect_calculator.get_effect_total(base_value, type_tag, source_statuses, target_statuses, opportunities)
 		total_values[type_tag] += total_value
 	card_instance.update_card_effects(total_values)
 	return total_values
@@ -349,13 +351,22 @@ func _on_PlayerInterface_gui_input(event):
 			_calculate_card_mod(card_node, card_owner, target)
 
 func get_player_card_opportunities(card:CardData):
-	var filtered_opportunities : Dictionary = {}
+	var filtered_opportunities : Dictionary[OpportunityData, OpportunitiesContainer] = {}
 	var playable_types : Array = effect_calculator.get_playable_types(card)
 	var character_opportunities = actions_board.get_character_sourced_opportunities(player_data)
 	for opportunity in character_opportunities:
 		if opportunity.type in playable_types:
 			filtered_opportunities[opportunity] = actions_board.get_opportunity_container(opportunity)
 	return filtered_opportunities
+
+func get_target_type_opportunities(card:CardData, target:CharacterData) -> Array[OpportunityData]:
+	var target_type_opportunities : Array[OpportunityData]
+	var playable_types : Array = effect_calculator.get_playable_types(card)
+	var character_opportunities = actions_board.get_character_sourced_opportunities(player_data)
+	for opportunity in character_opportunities:
+		if opportunity.type in playable_types and opportunity.target == target:
+			target_type_opportunities.append(opportunity)
+	return target_type_opportunities
 
 func _openings_glow_on(card:CardData):
 	for container in get_player_card_opportunities(card).values():

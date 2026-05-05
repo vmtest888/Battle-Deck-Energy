@@ -37,9 +37,11 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 
 [node name="ActionsBoard" parent="BattleBoard/MarginContainer/VBoxContainer" unique_id=1633118518 instance=ExtResource("6")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="PlayerBoard" parent="BattleBoard/MarginContainer/VBoxContainer" unique_id=1049940698 instance=ExtResource("2")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="HandContainer" type="CenterContainer" parent="." unique_id=1553943555]
@@ -56,12 +58,15 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="HandManager" parent="HandContainer/CardControl" unique_id=2114527211 instance=ExtResource("5")]
+unique_name_in_owner = true
 hand_center_distance = 2048.0
 offset_nearest_card = Vector2(0, -160)
 
 [node name="BattleCardManager" parent="HandContainer/CardControl" unique_id=44093508 instance=ExtResource("8")]
+unique_name_in_owner = true
 
-[node name="InspectorCardManager" parent="HandContainer/CardControl" unique_id=1266928900 instance=ExtResource("1")]
+[node name="OpponentCardManager" parent="HandContainer/CardControl" unique_id=1266928900 instance=ExtResource("1")]
+unique_name_in_owner = true
 scale_focused_card = Vector2(1.1, 1.1)
 
 [node name="StatusUpdatesContainer" type="Control" parent="." unique_id=850359669]
