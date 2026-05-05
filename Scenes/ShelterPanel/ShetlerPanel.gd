@@ -22,13 +22,19 @@ const BATH_DESCRIPTION = "Clean your Deck of %d Card"
 @onready var blowing_particle_generator = $CentralControl/BlowingParticles2D
 @onready var spark_particle_generator = $CentralControl/SparkParticles2D2
 @onready var blowing_audio_player = $CentralControl/BlowingAudioStreamPlayer2D
+@onready var level_progress = %LevelProgress
 
 @export var health_gain_ratio: float = 0.25
+@export var next_levels : Array
 
 var deck_cleaner_scene = preload("res://Scenes/DeckViewer/DeckCleaner/DeckCleaner.tscn")
 var status_text_animation = preload("res://Scenes/PlayerInterface/BattleBoard/ActionsBoard/StatusTextAnimation/StatusTextAnimation.tscn")
 var health_status_base = preload("res://Resources/Statuses/Health.tres")
 var player_data : CharacterData: set = set_player_data
+
+func _ready():
+	level_progress.next_levels = next_levels
+	player_data = player_data
 
 func get_raised_health():
 	var max_health : int = player_data.max_health

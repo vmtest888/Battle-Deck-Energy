@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bdl4cjdydve2l"]
+
+[ext_resource type="Script" uid="uid://m2nsr30in7kp" path="res://Scenes/LevelProgress/level_progress.gd" id="1_15vw5"]
+[ext_resource type="Texture2D" uid="uid://casnd1xiu6a8h" path="res://Assets/Sourced/Icons/Game-Icons.net/evil-minion.png" id="2_asckk"]
+[ext_resource type="Texture2D" uid="uid://clddrr2no1s57" path="res://Assets/Sourced/Icons/Game-Icons.net/brute.png" id="3_8qg1k"]
+[ext_resource type="Texture2D" uid="uid://ouu4dpibi8d" path="res://Assets/Sourced/Icons/Game-Icons.net/campfire.png" id="4_uvct5"]
+[ext_resource type="Texture2D" uid="uid://b8jju36w8trb6" path="res://Assets/Sourced/Icons/Game-Icons.net/achievement.png" id="5_lhfbg"]
+[ext_resource type="Texture2D" uid="uid://nwta02clyxn0" path="res://Assets/Sourced/Icons/Game-Icons.net/bookmarklet.png" id="6_2qhvv"]
+[ext_resource type="Texture2D" uid="uid://dk03cxg8746lc" path="res://Assets/Sourced/Icons/Game-Icons.net/person.png" id="7_bu7uf"]
+[ext_resource type="Texture2D" uid="uid://bm4j3u0elhaq7" path="res://Assets/Originals/Icons/short-arrow-up-2.png" id="8_pex16"]
+
+[node name="LevelProgress" type="Control" unique_id=7705098]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 0
+script = ExtResource("1_15vw5")
+easy_battle_icon = ExtResource("2_asckk")
+hard_battle_icon = ExtResource("3_8qg1k")
+shelter_icon = ExtResource("4_uvct5")
+save_icon = ExtResource("5_lhfbg")
+story_icon = ExtResource("6_2qhvv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1660191844]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=2145539568]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="LevelTextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer" unique_id=1106048154]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("7_bu7uf")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer" unique_id=510722119]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("8_pex16")
+
+[node name="SeparatorLabel" type="Label" parent="HBoxContainer" unique_id=1349620981]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = " --- "
+horizontal_alignment = 1

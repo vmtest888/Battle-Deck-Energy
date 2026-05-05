@@ -57,8 +57,9 @@ func start_battle(battle_level:BattleLevelData):
 func start_shelter():
 	battle_shadow_panel.show()
 	var shelter_interface = shelter_interface_scene.instantiate()
-	campaign_interface_container.add_child(shelter_interface)
+	shelter_interface.next_levels = level_manager.get_next_levels(4)
 	shelter_interface.player_data = player_data
+	campaign_interface_container.add_child(shelter_interface)
 	shelter_interface.connect("level_completed", Callable(self, "_unload_levels_and_continue"))
 	shelter_interface.connect("bath_pressed", Callable(self, "_attach_deck_view"))
 
@@ -92,6 +93,7 @@ func start_fork(left_level:BattleLevelData, right_level:BattleLevelData):
 	var fork_interface = fork_panel_scene.instantiate()
 	fork_interface.left_level = left_level
 	fork_interface.right_level = right_level
+	fork_interface.next_levels = level_manager.get_next_levels(4)
 	campaign_interface_container.add_child(fork_interface)
 	fork_interface.connect("path_selected", Callable(self, "_on_path_selected"))
 

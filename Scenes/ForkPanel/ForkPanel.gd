@@ -12,11 +12,13 @@ const TEXT_STRING : String = "[b][i][color=%s]%s - %d[/color][/i][/b]"
 @export_group("Levels")
 @export var left_level : BattleLevelData
 @export var right_level : BattleLevelData
+@export var next_levels : Array
 
 @onready var left_text_label = %LeftTextLabel
 @onready var right_text_label = %RightTextLabel
 @onready var left_icons = %LeftIcons
 @onready var right_icons = %RightIcons
+@onready var level_progress = %LevelProgress
 
 func get_color_for_type(loot_type:BattleLevelData.LootType) -> Color:
 	match(loot_type):
@@ -63,15 +65,18 @@ func set_opponent_icons(container:Control, level:BattleLevelData) -> void:
 			child.modulate = Color.WHITE
 		iter += 1
 
+func set_level_progress() -> void:
+	level_progress.next_levels = next_levels
+
 func refresh():
 	set_label_text(left_text_label, left_level)
 	set_label_text(right_text_label, right_level)
 	set_opponent_icons(left_icons, left_level)
 	set_opponent_icons(right_icons, right_level)
+	set_level_progress()
 
 func _ready():
 	refresh()
-
 
 func _on_left_button_pressed():
 	path_selected.emit(left_level)
