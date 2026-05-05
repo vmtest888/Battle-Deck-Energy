@@ -49,7 +49,8 @@ enum MouseInputMode{NONE, GUI, PHYSICS}
 
 
 var card_data : CardData: set = set_card_data
-var base_values : Dictionary = {}
+var base_values : Dictionary[String, int]
+var modified_values : Dictionary[String, int] : set = set_modified_values
 var mouse_input_mode : MouseInputMode = MouseInputMode.GUI: set = set_mouse_input_mode
 var locked_face : bool = false
 
@@ -91,7 +92,7 @@ func _reset_card_front():
 		energy_label.text = str(card_data.energy_cost)
 	effect_texture.texture = card_data.icon
 	_reset_card_type()
-	update_card_effects(base_values)
+	modified_values = base_values.duplicate()
 
 func update_affordability(energy:int):
 	if locked_face:
@@ -141,6 +142,10 @@ func play_slide_audio():
 	slide_audio_player.pitch_scale = _get_random_pitch()
 	slide_audio_player.play()
 
+func set_modified_values(value) -> void:
+	modified_values = value
+	update_card_effects(modified_values)
+
 func update_card_effects(total_values:Dictionary):
 	if card_data.description == "":
 		return
@@ -184,13 +189,13 @@ func set_card_data(value:CardData):
 		_force_card_transform(card_data.transform_data)
 
 func glow_on():
-		glow_node.glow_on()
+	glow_node.glow_on()
 
 func glow_not():
-		glow_node.glow_not()
+	glow_node.glow_not()
 
 func glow_off():
-		glow_node.glow_off()
+	glow_node.glow_off()
 
 func animate_pulse():
 	_finish_tween()

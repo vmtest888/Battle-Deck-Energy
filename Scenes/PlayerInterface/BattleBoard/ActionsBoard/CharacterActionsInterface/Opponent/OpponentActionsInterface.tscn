@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ujw8b1pdmqp0" path="res://Scenes/PlayerInterface/BattleBoard/ActionsBoard/CharacterActionsInterface/CharacterActionsInterface.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://ch4asah4tvyif" path="res://Scenes/PlayerInterface/BattleBoard/ActionsBoard/CharacterActionsInterface/Opponent/DeadCover/DeadCover.tscn" id="2"]
 [ext_resource type="Script" uid="uid://bc57dv67wdrkn" path="res://Scenes/PlayerInterface/BattleBoard/ActionsBoard/CharacterActionsInterface/Opponent/OpponentActionsInterface.gd" id="3"]
-[ext_resource type="PackedScene" uid="uid://dc23quifcih1x" path="res://Managers/Cards/CardContainer/OpportunitiesContainer/OpportunitiesContainter.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://dc23quifcih1x" path="res://Managers/Cards/CardContainer/OpportunitiesContainer/OpportunitiesContainer.tscn" id="4"]
 
 [node name="OpponentActionsInterface" unique_id=523037023 instance=ExtResource("1")]
 script = ExtResource("3")

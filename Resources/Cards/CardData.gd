@@ -45,8 +45,9 @@ func has_effect(type_tag:String):
 				return true
 	return false
 
-func get_effect(type_tag:String):
+func get_effect(type_tag:String) -> EffectData:
 	for battle_effect in effects:
 		if battle_effect is EffectData:
 			if battle_effect.type_tag == type_tag:
 				return battle_effect
+	return
