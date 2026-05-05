@@ -287,10 +287,6 @@ func _on_EffectManager_apply_status(character, status, _origin):
 	var character_manager : CharacterBattleManager = _character_manager_map[character]
 	character_manager.gain_status(status)
 
-func _on_EffectManager_apply_energy(character, energy, _source):
-	var character_manager : CharacterBattleManager = _character_manager_map[character]
-	character_manager.gain_energy(energy)
-
 func _on_EffectManager_add_card_to_hand(card, character):
 	var battle_manager : CharacterBattleManager = _character_manager_map[character]
 	battle_manager.add_card_to_hand(card)
