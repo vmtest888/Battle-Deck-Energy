@@ -12,7 +12,6 @@ signal card_discarded(character, card)
 signal card_exhausted(character, card)
 signal card_reshuffled(character, card)
 signal card_played(character, card, opportunity)
-signal related_status_changed(character, status, origin)
 
 @onready var status_manager : StatusManager = $StatusManager
 @onready var iff_manager = $IFFManager
@@ -182,11 +181,7 @@ func play_card_on_opportunity(card:CardData, opportunity:OpportunityData):
 	emit_signal("card_played", character_data, card, opportunity)
 
 func gain_status(status:StatusData):
-	var is_target : bool = true
-	if status is RelatedStatusData:
-		if status.target != character_data:
-			is_target = false
-	status_manager.gain_status(status, is_target)
+	status_manager.gain_status(status)
 
 func _update_poison_status():
 	var poisoned_status : StatusData = status_manager.get_status(EffectCalculator.POISONED_STATUS)
@@ -249,6 +244,3 @@ func get_related_status(type_tag:String, related:CharacterData, is_target : bool
 
 func has_status(type_tag:String, _source = null):
 	return get_status(type_tag) != null
-
-func _on_StatusManager_related_status_changed(related_character, status, delta):
-	emit_signal("related_status_changed", related_character, status, character_data)

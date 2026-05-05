@@ -39,6 +39,7 @@ func _ready():
 	effects_manager.team_manager = team_manager
 	EventBus.turn_ended.connect(_on_turn_ended)
 	EventBus.character_died.connect(_on_character_died)
+	EventBus.related_status_updated.connect(_on_related_status_updated)
 
 func _new_character_manager_instance(character_data : CharacterData, _team : String):
 	var character_battle_manager : CharacterBattleManager = character_battle_manager_scene.instantiate()
@@ -59,7 +60,6 @@ func _connect_character_battle_manager(character_battle_manager : CharacterBattl
 	character_battle_manager.connect("card_played", _on_CharacterBattleManager_card_played)
 	character_battle_manager.connect("card_removed_from_hand", _on_CharacterBattleManager_card_removed_from_hand)
 	character_battle_manager.connect("card_reshuffled", _on_CharacterBattleManager_card_reshuffled)
-	character_battle_manager.connect("related_status_changed", _on_CharacterBattleManager_related_status_changed)
 
 func add_character(character_data : CharacterData, team : String):
 	if character_data in _character_manager_map:
@@ -208,8 +208,8 @@ func _on_turn_ended(character : CharacterData):
 	if character == active_character:
 		advance_character_phase()
 
-func _on_CharacterBattleManager_related_status_changed(character : CharacterData, status, origin):
-	_on_EffectManager_apply_status(character, status, origin)
+func _on_related_status_updated(character : CharacterData, status:RelatedStatusData, _delta, _animate):
+	_on_EffectManager_apply_status(character, status, null)
 
 func _on_character_died(character):
 	if _battle_ended:
