@@ -5,7 +5,6 @@ class_name EffectsManager
 
 signal apply_health(character, health, source)
 signal apply_status(character, status, origin)
-signal apply_energy(character, energy, source)
 signal add_card_to_hand(card, character)
 signal add_card_to_draw_pile(card, character)
 signal add_card_to_discard_pile(card, character)
@@ -146,7 +145,7 @@ func _resolve_status(status:StatusData, mod:float, effect_type:String, source:Ch
 	var source_statuses = _get_character_statuses(source, character_manager_map)
 	var target_statuses = _get_character_statuses(target, character_manager_map)
 	var status_quantity : int = modified_status.get_stack_value()
-	status_quantity *= mod
+	status_quantity = floor(status_quantity * mod)
 	status_quantity = effect_calculator.get_effect_total(status_quantity, effect_type, source_statuses, target_statuses)
 	modified_status.set_stack_value(status_quantity)
 	if modified_status is RelatedStatusData:
@@ -211,15 +210,16 @@ func _resolve_deck_mod(effect:DeckModEffectData, character:CharacterData):
 			emit_signal("add_card_to_discard_pile", new_card, character)
 
 func _resolve_self_effects(effect:EffectData, character:CharacterData, character_manager_map:Dictionary):
+	var character_manager : CharacterBattleManager = character_manager_map[character]
 	match(effect.type_tag):
 		EffectCalculator.ATTACK_EFFECT:
 			_resolve_self_damage(effect, character, character_manager_map)
 		EffectCalculator.DRAW_CARD_EFFECT:
 			emit_signal("draw_from_draw_pile", character, effect.amount)
 		EffectCalculator.GAIN_ENERGY_EFFECT:
-			emit_signal("apply_energy", character, effect.amount, character)
+			character_manager.gain_energy(effect.amount)
 		EffectCalculator.LOSE_ENERGY_EFFECT:
-			emit_signal("apply_energy", character, -(effect.amount), character)
+			character_manager.gain_energy(-effect.amount)
 	if effect is StatusEffectData:
 		_resolve_statuses(effect, character, character, character_manager_map)
 	if effect is DeckModEffectData:
@@ -250,6 +250,7 @@ func _get_matching_opportunities(opportunity:OpportunityData) -> Array[Opportuni
 	return opportunities_manager.get_matching_opportunities(opportunity.type, opportunity.source, opportunity.target)
 
 func _resolve_card_effect(effect:EffectData, opportunity:OpportunityData, final_target:CharacterData, character_manager_map:Dictionary) -> void:
+	var character_manager : CharacterBattleManager = character_manager_map[final_target]
 	match(effect.type_tag):
 		EffectCalculator.ADD_ATTACK_EFFECT:
 			for _i in range(effect.amount):
@@ -269,9 +270,9 @@ func _resolve_card_effect(effect:EffectData, opportunity:OpportunityData, final_
 		EffectCalculator.DRAW_CARD_EFFECT:
 			emit_signal("draw_from_draw_pile", final_target, effect.amount)
 		EffectCalculator.GAIN_ENERGY_EFFECT:
-			emit_signal("apply_energy", final_target, effect.amount, opportunity.source)
+			character_manager.gain_energy(effect.amount)
 		EffectCalculator.LOSE_ENERGY_EFFECT:
-			emit_signal("apply_energy", final_target, -(effect.amount), opportunity.source)
+			character_manager.gain_energy(-effect.amount)
 		EffectCalculator.INTERRUPT_EFFECT:
 			_resolve_interrupt_statuses(StatusData.StatusType.BUFF, final_target, character_manager_map)
 		EffectCalculator.MARKED_DAMAGE_EFFECT:
@@ -362,15 +363,15 @@ func add_all_opportunities(type : int, source : CharacterData, target : Characte
 				opportunities_manager.modify_opportunities(CardData.CardType.SKILL, source, target, 2.0)
 
 func set_starting_energy(character_battle_manager : CharacterBattleManager):
-	var base_energy = character_battle_manager.starting_energy - character_battle_manager.current_energy
-	var character = character_battle_manager.character_data
+	character_battle_manager.lose_energy(character_battle_manager.current_energy)
+	var base_energy = character_battle_manager.starting_energy
 	var cindering_status : StatusData = character_battle_manager.get_status(EffectCalculator.CINDERING_STATUS)
 	if cindering_status != null:
 		base_energy += 1
 	var charged_status : StatusData = character_battle_manager.get_status(EffectCalculator.CHARGED_STATUS)
 	if charged_status != null:
 		base_energy += charged_status.get_stack_value()
-	emit_signal("apply_energy", character, base_energy, character)
+	character_battle_manager.gain_energy(base_energy)
 
 func get_starting_draw_card_count(character_battle_manager : CharacterBattleManager):
 	var character : CharacterData = character_battle_manager.character_data

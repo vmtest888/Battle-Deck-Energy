@@ -11,7 +11,6 @@ signal view_deck_pressed(deck)
 
 var battle_manager : BattleManager
 var player_interface : PlayerInterface
-var _battle_ended : bool = false
 var player_character : set = set_player_character
 
 func _advance_character_phase():
@@ -38,12 +37,12 @@ func set_player_character(value : CharacterData):
 func start_battle():
 	battle_manager.start_battle()
 
-func _on_hand_drawn(character : CharacterData):
+func _on_hand_drawn(_character : CharacterData):
 	if player_interface.is_connected("drawing_completed", _on_hand_drawn):
 		player_interface.disconnect("drawing_completed", _on_hand_drawn)
 	_advance_character_phase()
 
-func _on_hand_discarded(character :  CharacterData):
+func _on_hand_discarded(_character :  CharacterData):
 	if player_interface.is_connected("discard_completed", _on_hand_discarded):
 		player_interface.disconnect("discard_completed", _on_hand_discarded)
 	_advance_character_phase()
@@ -69,10 +68,10 @@ func _on_BattleManager_card_added_to_hand(character : CharacterData, card : Card
 	if character == player_character:
 		player_interface.draw_card(card)
 
-func _on_BattleManager_card_discarded(character : CharacterData, card : CardData):
+func _on_BattleManager_card_discarded(_character : CharacterData, card : CardData):
 	player_interface.discard_card(card)
 	
-func _on_BattleManager_card_exhausted(character : CharacterData, card : CardData):
+func _on_BattleManager_card_exhausted(_character : CharacterData, card : CardData):
 	player_interface.exhaust_card(card)
 
 func _on_BattleManager_card_reshuffled(character : CharacterData, card : CardData):
@@ -85,9 +84,6 @@ func _on_BattleManager_card_played(character : CharacterData, card : CardData, o
 func _on_BattleManager_card_spawned(character, card):
 	player_interface.new_character_card(character, card)
 	player_interface.animate_pulse(card)
-
-func _on_BattleManager_status_updated(character : CharacterData, status : StatusData, delta : int):
-	player_interface.update_status(character, status, delta)
 
 func _on_BattleManager_team_won(team):
 	var player_team = battle_manager.get_team(player_character)

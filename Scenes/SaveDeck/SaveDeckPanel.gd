@@ -30,7 +30,7 @@ func _is_saveable():
 	else:
 		save_button.disabled = false
 
-func _on_TitleLineEdit_text_changed(new_text):
+func _on_TitleLineEdit_text_changed(_new_text):
 	_is_saveable()
 
 func _on_IconItemList_item_selected(index):

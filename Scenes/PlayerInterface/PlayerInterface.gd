@@ -30,7 +30,6 @@ var effect_text_animation_scene = preload("res://Scenes/PlayerInterface/BattleBo
 var player_data : CharacterData: set = set_player_data
 var _drawing_cards_count : int = 0
 var _discarding_cards_count : int = 0
-var _opportunities_map : Dictionary = {}
 var _character_statuses_map : Dictionary = {}
 var _card_owner_map : Dictionary = {}
 var _nearest_opportunity = null
@@ -61,13 +60,13 @@ func draw_card(card_data:CardData):
 	PersistentData.log_battle_action("Drew card `%s`" % card_data.title)
 	var hand_offset : Vector2 = hand_manager.get_global_transform().get_origin() - card_manager.get_global_transform().get_origin()
 	var new_transform : TransformData = TransformData.new(hand_offset)
-	animation_queue.animate_move(card_data, new_transform, 0.3, 0.15, AnimationType.DRAWING_INTO_HAND)
+	animation_queue.animate_move(card_data, new_transform, AnimationType.DRAWING_INTO_HAND, 0.3, 0.15)
 
 func draw_card_from_draw_pile(card_data:CardData):
 	var draw_pile_offset : Vector2 = draw_pile.get_global_transform().get_origin() - card_manager.get_global_transform().get_origin()
 	card_data.transform_data.position = draw_pile_offset
 	card_data.transform_data.scale = Vector2(0.1, 0.1)
-	animation_queue.animate_move(card_data, card_data.transform_data, 0.0, 0.05, AnimationType.DRAWING_FROM_DRAW_PILE)
+	animation_queue.animate_move(card_data, card_data.transform_data, AnimationType.DRAWING_FROM_DRAW_PILE, 0.0, 0.05)
 
 func discard_card(card_data:CardData):
 	if not card_data in _card_owner_map:
@@ -80,7 +79,7 @@ func discard_card(card_data:CardData):
 	var new_transform : TransformData = TransformData.new()
 	new_transform.position = discard_pile_offset
 	new_transform.scale = Vector2(0.1, 0.1)
-	animation_queue.animate_move(card_data, new_transform, 0.3, 0.15, AnimationType.DISCARDING)
+	animation_queue.animate_move(card_data, new_transform, AnimationType.DISCARDING, 0.3, 0.15)
 
 func exhaust_card(card_data:CardData):
 	if not card_data in _card_owner_map:
@@ -93,14 +92,14 @@ func exhaust_card(card_data:CardData):
 	var new_transform : TransformData = TransformData.new()
 	new_transform.position = exhaust_pile_offset
 	new_transform.scale = Vector2(0.1, 0.1)
-	animation_queue.animate_move(card_data, new_transform, 0.3, 0.15, AnimationType.EXHAUSTING)
+	animation_queue.animate_move(card_data, new_transform, AnimationType.EXHAUSTING, 0.3, 0.15)
 
 func reshuffle_card(card_data:CardData):
 	var draw_pile_offset : Vector2 = draw_pile.get_global_transform().get_origin() - card_manager.get_global_transform().get_origin()
 	var new_transform : TransformData = TransformData.new()
 	new_transform.position = draw_pile_offset
 	new_transform.scale = Vector2(0.1, 0.1)
-	animation_queue.animate_move(card_data, new_transform, 0.2, 0.1, AnimationType.RESHUFFLING)
+	animation_queue.animate_move(card_data, new_transform, AnimationType.RESHUFFLING, 0.2, 0.1)
 
 func reset_end_turn():
 	player_board.reset_end_turn()
@@ -109,6 +108,7 @@ func _ready():
 	animation_queue.delay_timer()
 	EventBus.opportunity_removed.connect(_on_opportunity_removed)
 	EventBus.opportunities_reset.connect(_on_opportunities_reset)
+	EventBus.status_updated.connect(_on_status_updated)
 	EventBus.turn_ended.connect(_on_turn_ended)
 
 func _on_HandManager_card_updated(card_data:CardData, transform:TransformData):
@@ -236,7 +236,8 @@ func _on_card_animation_started(animation:CardAnimationData):
 			card_manager.move_card(card, animation.transform_data, animation.tween_time)
 
 func _on_status_animation_started(animation:StatusAnimationData):
-	_update_status(animation.character_data, animation.status_data, animation.delta)
+	var show_update : bool = false if animation.animation_type == -1 else true
+	_update_status(animation.character_data, animation.status_data, animation.delta, show_update)
 
 func _on_turn_ended(_character_data:CharacterData):
 	hand_manager.spread_from_mouse_flag = false
@@ -366,16 +367,16 @@ func _openings_glow_off(card:CardData):
 		if container is OpportunitiesContainer:
 			container.glow_off()
 
-func get_nearest_card_opportunity(card:CardData, position = null):
-	if position == null:
-		position = card.transform_data.position
+func get_nearest_card_opportunity(card:CardData, from_position = null):
+	if from_position == null:
+		from_position = card.transform_data.position
 	var shortest_distance : float = opportunity_snap_range
 	var nearest_opportunity = null
 	for opportunity in get_player_card_opportunities(card):
 		if opportunity is OpportunityData:
 			var opportunity_transform : TransformData = opportunity.transform_data
-			if opportunity_transform.position.distance_to(position) < shortest_distance:
-				shortest_distance = opportunity_transform.position.distance_to(position)
+			if opportunity_transform.position.distance_to(from_position) < shortest_distance:
+				shortest_distance = opportunity_transform.position.distance_to(from_position)
 				nearest_opportunity = opportunity
 	return nearest_opportunity
 
@@ -448,7 +449,7 @@ func opponent_discards_card(card:CardData):
 		await card_instance.pulse_animation.animation_finished
 	opponent_card_manager.remove_card(card)
 
-func _update_status(character : CharacterData, status : StatusData, delta : int):
+func _update_status(character : CharacterData, status : StatusData, delta : int, show_update : bool = true):
 	if status is RelatedStatusData:
 		if character == player_data:
 			# Don't show related statuses on the player character
@@ -459,26 +460,30 @@ func _update_status(character : CharacterData, status : StatusData, delta : int)
 	if not character in _character_statuses_map:
 		_character_statuses_map[character] = {}
 	_character_statuses_map[character][status.type_tag] = status
-	var interface = actions_board.update_status(character, status)
+	var interface = actions_board.update_status(character, status, show_update)
 	if not interface is CharacterActionsInterface:
 		return
-	_show_status_update_over_interface(interface, status, delta)
+	if show_update:
+		_show_status_update_over_interface(interface, status, delta)
 	_recalculate_all_cards()
 	if status.get_stack_value() == 0:
 		_character_statuses_map[character].erase(status.type_tag)
 		if status.type_tag == EffectCalculator.HEALTH_STATUS:
 			character_dies(character)
 
-func update_status(character : CharacterData, status : StatusData, delta : int):
+func _on_status_updated(character : CharacterData, status : StatusData, delta : int, animate : bool):
 	if status.type_tag == EffectCalculator.ENERGY_STATUS:
 		if character == player_data:
 			player_board.gain_energy(delta)
 			card_manager.energy_available += delta
-			if delta <= 0:
+			if not animate:
 				return
 		else:
 			return
-	animation_queue.animate_status(character, status, delta)
+	var animation_type = 0
+	if not animate:
+		animation_type = -1
+	animation_queue.animate_status(character, status, delta, animation_type)
 
 func _on_PlayerInterface_resized():
 	if $ResizeTimer.is_inside_tree():

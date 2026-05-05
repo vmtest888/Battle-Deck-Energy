@@ -84,23 +84,24 @@ func remove_all_opportunities():
 		remove_opportunity(opportunity, false)
 	opportunities_map.clear()
 
-func update_status(status:StatusData):
+func update_status(status:StatusData, show_update:bool=true):
 	match(status.type_tag):
 		EffectCalculator.ENERGY_STATUS:
 			return
 		EffectCalculator.HEALTH_STATUS:
-			if health_meter.health > status.intensity:
+			if show_update and health_meter.health > status.intensity:
 				play_stab_audio()
 			health_meter.health = status.intensity
 			return
 		EffectCalculator.DEFENSE_STATUS:
-			if health_meter.armor > status.intensity:
+			if show_update and health_meter.armor > status.intensity:
 				play_clank_audio()
-			elif health_meter.armor < status.intensity:
+			elif show_update and health_meter.armor < status.intensity:
 				play_shield_audio()
 			health_meter.armor = status.intensity
 			return
-	status_icon_manager.update_status(status)
+		_:
+			status_icon_manager.update_status(status)
 
 func defeat_character():
 	remove_all_opportunities()

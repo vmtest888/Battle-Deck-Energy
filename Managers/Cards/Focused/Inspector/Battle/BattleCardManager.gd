@@ -53,12 +53,12 @@ func focus_off_card(card_node:CardNode2D):
 	super.focus_off_card(card_node)
 	card_node.glow_off()
 
-func drag_to_position(position:Vector2):
+func drag_to_position(drag_position:Vector2):
 	if dragged_card == null:
 		return
 	if dragged_card is CardNode2D:
 		var transform_data = dragged_card.card_data.transform_data.duplicate()
-		transform_data.position = position
+		transform_data.position = drag_position
 		move_card(dragged_card.card_data, transform_data, 0.05)
 		return dragged_card
 

@@ -10,6 +10,3 @@ script = ExtResource("1")
 [node name="StatusManager" parent="." unique_id=348273624 instance=ExtResource("2")]
 
 [node name="IFFManager" parent="." unique_id=1204780922 instance=ExtResource("4")]
-
-[connection signal="related_status_changed" from="StatusManager" to="." method="_on_StatusManager_related_status_changed"]
-[connection signal="status_updated" from="StatusManager" to="." method="_on_StatusManager_status_updated"]

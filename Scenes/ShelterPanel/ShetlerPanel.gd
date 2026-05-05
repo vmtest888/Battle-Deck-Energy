@@ -32,7 +32,7 @@ var player_data : CharacterData: set = set_player_data
 
 func get_raised_health():
 	var max_health : int = player_data.max_health
-	var health_increase : int = float(max_health) * health_gain_ratio
+	var health_increase : int = floor(float(max_health) * health_gain_ratio)
 	return min(player_data.health + health_increase, max_health)
 
 func _reset_dine_description():
@@ -41,7 +41,7 @@ func _reset_dine_description():
 	if player_data is CharacterData:
 		var max_health : int = player_data.max_health
 		var current_health : int = player_data.health
-		var health_increase : int = float(max_health) * health_gain_ratio
+		var health_increase : int = floor(float(max_health) * health_gain_ratio)
 		var raised_health : int = get_raised_health()
 		dine_label.text = DINE_DESCRIPTION % [health_gain_ratio*100, health_increase, current_health, max_health, raised_health, max_health]
 

@@ -22,7 +22,7 @@ func play_revealed_cards() -> void:
 		revealed_cards_timer.start()
 		await revealed_cards_timer.timeout
 
-func take_turn(opportunities : Array):
+func take_turn(available_opportunities : Array):
 	if not character_data.is_alive():
 		_end_turn()
 		return
@@ -38,7 +38,7 @@ func take_turn(opportunities : Array):
 	if not random_card.title in played_cards:
 		played_cards[random_card.title] = 0
 	played_cards[random_card.title] += 1
-	for opportunity in opportunities:
+	for opportunity in available_opportunities:
 		if random_card.type == opportunity.type:
 			_play_card(random_card, opportunity)
 			_end_turn()
