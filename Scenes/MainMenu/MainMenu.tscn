@@ -9,13 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://co4u5w6a5i7q6" path="res://Assets/Originals/Title/Energy_text.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://di7oup2s1epls" path="res://Assets/Originals/Title/Battle_text.png" id="8"]
 [ext_resource type="Script" uid="uid://12gsywpyrehc" path="res://Scenes/MainMenu/MainMenu.gd" id="9"]
-[ext_resource type="AudioStream" uid="uid://baufbrcjgb3ms" path="res://Assets/Sourced/Music/SoundImage/Analog-Nostalgia.ogg" id="10"]
 [ext_resource type="Texture2D" uid="uid://cq7a1ps1g2wkj" path="res://Assets/Mixed/Backgrounds/Deck-Fighter.png" id="11"]
 [ext_resource type="Texture2D" uid="uid://dn8wpvgoo0wac" path="res://Assets/Mixed/Backgrounds/Mountain-Background.png" id="12"]
 [ext_resource type="Material" uid="uid://bdxvm8u1klphf" path="res://Scenes/MainMenu/FireText2ShaderMaterial.tres" id="13"]
 [ext_resource type="PackedScene" uid="uid://llying411134" path="res://Scenes/DeckList/DeckListInterface.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://d8s08o4mc178" path="res://Scenes/AudioMenu/AudioMenu.tscn" id="15"]
 [ext_resource type="PackedScene" uid="uid://daus3rxf6smv1" path="res://Managers/Tooltip/TooltipManager.tscn" id="16"]
+[ext_resource type="AudioStream" uid="uid://bh0bxywvoih32" path="res://Assets/Sourced/Music/Ovani/Ambient Vol4 Distant Skies Main.ogg" id="16_ee4eu"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "SlideInLeft"
@@ -286,7 +286,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1033118229]
-stream = ExtResource("10")
+stream = ExtResource("16_ee4eu")
 volume_db = -15.0
 autoplay = true
 bus = &"Music"

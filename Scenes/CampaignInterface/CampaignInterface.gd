@@ -125,6 +125,8 @@ func start_level():
 func _on_path_selected(level:BattleLevelData):
 	battle_shadow_panel.hide()
 	current_level = level
+	if current_level.mood_type != "":
+		mood_manager.set_mood(current_level.mood_type)
 	start_battle(level)
 
 func _start_next_level():

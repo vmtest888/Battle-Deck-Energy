@@ -2,16 +2,16 @@
 
 [ext_resource type="Theme" uid="uid://h5betpv16esb" path="res://Themes/Main.tres" id="1"]
 [ext_resource type="StyleBox" uid="uid://rifosnxch4oc" path="res://Themes/StyleBoxes/ShadowStyleBox.tres" id="2"]
-[ext_resource type="AudioStream" uid="uid://bm3f1y2hrgvb4" path="res://Assets/Sourced/Music/SoundImage/Comrades-Always.ogg" id="3"]
-[ext_resource type="AudioStream" uid="uid://bnxjp0otksoh3" path="res://Assets/Sourced/Music/SoundImage/Into-Battle_v001.ogg" id="4"]
 [ext_resource type="AudioStream" uid="uid://cmilwh31j0k0j" path="res://Assets/Sourced/Music/OfFarDifferentNature/Of Far Different Nature - Ganxta (CC-BY).ogg" id="5"]
-[ext_resource type="AudioStream" uid="uid://2jrrs2ggudr2" path="res://Assets/Sourced/Music/SoundImage/RPG-Battle-Climax.ogg" id="7"]
-[ext_resource type="AudioStream" uid="uid://dxbu6q4o1ct52" path="res://Assets/Sourced/Music/OfFarDifferentNature/Of Far Different Nature - Adventure Begins (CC-BY).ogg" id="8"]
 [ext_resource type="Texture2D" uid="uid://dfrmrqpy6qh6l" path="res://Assets/Mixed/Backgrounds/SchoolBackground1920x1080_v1.png" id="9"]
 [ext_resource type="Script" uid="uid://ccywtddvdnqyl" path="res://Scenes/NetworkedGameInterface/NetworkedGameInterface.gd" id="10"]
+[ext_resource type="AudioStream" uid="uid://d1dcam4327imi" path="res://Assets/Sourced/Music/Ovani/Ambient Vol4 Timelapse Main.ogg" id="10_cfill"]
 [ext_resource type="PackedScene" uid="uid://dxc7k6offi8gr" path="res://Scenes/DeckSelector/DeckSelectorInterface.tscn" id="11"]
+[ext_resource type="AudioStream" uid="uid://bidupctqbvo6x" path="res://Assets/Sourced/Music/Ovani/Ambient Vol4 Hymn Main.ogg" id="11_0ed2p"]
 [ext_resource type="PackedScene" uid="uid://daus3rxf6smv1" path="res://Managers/Tooltip/TooltipManager.tscn" id="12"]
+[ext_resource type="AudioStream" uid="uid://w0cgg2qc6ux5" path="res://Assets/Sourced/Music/Ovani/Ambient Vol4 Out The Way Main.ogg" id="12_cky1n"]
 [ext_resource type="PackedScene" uid="uid://cr6yplg5nfolx" path="res://Managers/Mood/MoodManager.tscn" id="13"]
+[ext_resource type="AudioStream" uid="uid://daq3ro1iuxhwt" path="res://Assets/Sourced/Music/Ovani/Ambient Vol4 Serenity Main.ogg" id="13_mtcya"]
 [ext_resource type="PackedScene" uid="uid://bwxeugwjkp4m7" path="res://Scenes/NetworkedGameInterface/WinPanel/WinPanel.tscn" id="14"]
 [ext_resource type="FontFile" uid="uid://4rnntupb2k3n" path="res://Themes/Fonts/Credits/H4DynamicFont.tres" id="15"]
 [ext_resource type="PackedScene" uid="uid://qjy3y8lxxqoc" path="res://Scenes/NetworkedGameInterface/GameMenu/NetworkedGameMenu.tscn" id="16"]
@@ -114,10 +114,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MoodManager" parent="." unique_id=525261949 instance=ExtResource("13")]
-intro_song = ExtResource("8")
-easy_battle_song = ExtResource("7")
-hard_battle_song = ExtResource("4")
-shelter_song = ExtResource("3")
+intro_song = ExtResource("10_cfill")
+easy_battle_song = ExtResource("11_0ed2p")
+hard_battle_song = ExtResource("12_cky1n")
+shelter_song = ExtResource("13_mtcya")
 victory_song = ExtResource("5")
 
 [node name="WaitingLabel" type="Label" parent="." unique_id=27158395]
