@@ -27,12 +27,9 @@ License: [SIL Open Font License, Version 1.1](./Assets/Sourced/Fonts/economica/S
 
 ### Audio
 #### Menu, Battle, and Shelter Music
-Author: [Eric Matyas](www.soundimage.org)  
-Source: [Soundimage.org : Comrades-Always.mp3](https://soundimage.org/wp-content/uploads/2020/06/Comrades-Always.mp3)  
-Source: [Soundimage.org : Into-Battle_v001.mp3](http://soundimage.org/wp-content/uploads/2016/07/Into-Battle_v001.mp3)  
-Source: [Soundimage.org : RPG-Battle-Climax.mp3](http://soundimage.org/wp-content/uploads/2014/07/RPG-Battle-Climax.mp3)  
-Source: [Soundimage.org : Analog-Nostalgia.mp3](http://soundimage.org/wp-content/uploads/2016/04/Analog-Nostalgia.mp3)   
-License: [Attribution License](https://soundimage.org/attribution-info/)
+Author: [Ovani Sound](https://ovanisound.com/)  
+Source: [ovanisound.com : ambient-music-pack-vol-4](https://ovanisound.com/products/ambient-music-pack-vol-4)  
+License: Commercial, Royalty-Free
 
 #### Intro and Victory Music
 Author: [Of Far Different Nature](https://fardifferent.itch.io/)  

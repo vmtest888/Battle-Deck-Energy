@@ -1,13 +1,10 @@
 [gd_scene format=3 uid="uid://dxrmspa23uh6l"]
 
-[ext_resource type="FontFile" uid="uid://bkd4ufwf7u1ck" path="res://Themes/Fonts/Credits/H2DynamicFont.tres" id="1"]
-[ext_resource type="FontFile" uid="uid://xj6wnmjeh0xb" path="res://Themes/Fonts/Credits/H3DynamicFont.tres" id="2"]
-[ext_resource type="FontFile" uid="uid://4rnntupb2k3n" path="res://Themes/Fonts/Credits/H4DynamicFont.tres" id="3"]
 [ext_resource type="Script" uid="uid://dlyug8oryu4qc" path="res://Scenes/Credits/Credits.gd" id="4"]
 [ext_resource type="Theme" uid="uid://clhxa4f6p1qin" path="res://Themes/HiddenScrollBar.tres" id="6"]
 [ext_resource type="Theme" uid="uid://h5betpv16esb" path="res://Themes/Main.tres" id="7"]
 [ext_resource type="StyleBox" uid="uid://cn3c6nxpdux22" path="res://Themes/StyleBoxes/GraySquareStyleBox.tres" id="8"]
-[ext_resource type="FontFile" uid="uid://b1nk6a28754g" path="res://Themes/Fonts/Credits/H1DynamicFont.tres" id="9"]
+[ext_resource type="Script" uid="uid://wtoikt27ta8p" path="res://Scenes/Credits/credits_text_label.gd" id="9_cqi0y"]
 
 [node name="Credits" type="Control" unique_id=122202116]
 layout_mode = 3
@@ -18,14 +15,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("7")
 script = ExtResource("4")
-attribution_file_path = ""
-h1_font = ExtResource("9")
-h2_font = ExtResource("1")
-h3_font = ExtResource("2")
-h4_font = ExtResource("3")
-lines_prefixed = 24
-lines_suffixed = 40
-accel_down = 0.005
 
 [node name="Panel" type="Panel" parent="." unique_id=202025055]
 layout_mode = 0
@@ -39,190 +28,148 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("6")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer" unique_id=1062975284]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1375998786]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Header" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1291742085]
+custom_minimum_size = Vector2(0, 720)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CreditsTextLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=1062975284]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 focus_mode = 2
-text = "
+bbcode_enabled = true
+text = "[b][font_size=48]Collaborators[/font_size][/b]
+[b][font_size=32]Engineer and PM[/font_size][/b]
+Author: [url=https://github.com/Maaack]Marek Belski[/url]  
+Source: [url=https://github.com/Maaack/Battle-Deck-Energy]Github : Battle-Deck-Energy[/url]  
+License: [url=./LICENSE.md]MIT License[/url]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Collaborators
-Engineer and PM
-Author: Marek Belski  
-Source: Github : Battle-Deck-Energy  
-License: MIT License
-
-UI Designer
+[b][font_size=32]UI Designer[/font_size][/b]
 Author: Amy Stewart  
 
-Art Assets
-Fonts
-Titles
-Author: Derek Clark  
-Source: dafont.com : commando.font  
-License: Custom Free License
+[b][font_size=48]Art Assets[/font_size][/b]
+[b][font_size=32]Fonts[/font_size][/b]
+[b][font_size=24]Titles[/font_size][/b]
+Author: [url=http://defaulterror.za.net]Derek Clark[/url]  
+Source: [url=https://www.dafont.com/commando.font]dafont.com : commando.font[/url]  
+License: [url=./Assets/Sourced/Fonts/commando/ReadMe.txt]Custom Free License[/url]
 
-Headings
-Author: Youssef Habchi  
-Source: 1001Fonts : road-rage-font.html  
-License: Custom Personal-Use-Only License
+[b][font_size=24]Headings[/font_size][/b]
+Author: [url=https://youssef-habchi.com/]Youssef Habchi[/url]  
+Source: [url=https://www.1001fonts.com/road-rage-font.html]1001Fonts : road-rage-font.html[/url]  
+License: [url=./Assets/Sourced/Fonts/road-rage/READ ME.txt]Custom Personal-Use-Only License[/url]
 
-UI Text
-Author: TipoType  
-Source: 1001Fonts : economica-font.html  
-License: SIL Open Font License, Version 1.1
+[b][font_size=24]UI Text[/font_size][/b]
+Author: [url=https://www.1001fonts.com/users/TipoType/]TipoType[/url]  
+Source: [url=https://www.1001fonts.com/economica-font.html]1001Fonts : economica-font.html[/url]  
+License: [url=./Assets/Sourced/Fonts/economica/SIL-Open-Font-License.txt]SIL Open Font License, Version 1.1[/url]
 
-Audio
-Menu, Battle, and Shelter Music
-Author: Eric Matyas  
-Source: Soundimage.org : Comrades-Always.mp3  
-Source: Soundimage.org : Into-Battle_v001.mp3  
-Source: Soundimage.org : RPG-Battle-Climax.mp3  
-Source: Soundimage.org : Analog-Nostalgia.mp3   
-License: Attribution License
+[b][font_size=32]Audio[/font_size][/b]
+[b][font_size=24]Menu, Battle, and Shelter Music[/font_size][/b]
+Author: [url=https://ovanisound.com/]Ovani Sound[/url]  
+Source: [url=https://ovanisound.com/products/ambient-music-pack-vol-4]ovanisound.com : ambient-music-pack-vol-4[/url]  
+License: Commercial, Royalty-Free
 
-Intro and Victory Music
-Author: Of Far Different Nature  
-Source: itch.io : loops  
-License: Attribution 4.0 International (CC BY 4.0)
+[b][font_size=24]Intro and Victory Music[/font_size][/b]
+Author: [url=https://fardifferent.itch.io/]Of Far Different Nature[/url]  
+Source: [url=https://fardifferent.itch.io/loops]itch.io : loops[/url]  
+License: [url=https://creativecommons.org/licenses/by/4.0/]Attribution 4.0 International (CC BY 4.0)[/url]
 
-Card, Deck, and Shield Up Sounds
-Author: f4ngy  
-Source: freesound.org : 240776  
-Source: freesound.org : 240777  
-Source: freesound.org : 240778  
-Source: freesound.org : 240787  
-License: Attribution 3.0 Unported (CC BY 3.0)
+[b][font_size=24]Card, Deck, and Shield Up Sounds[/font_size][/b]
+Author: [url=https://freesound.org/people/f4ngy/]f4ngy[/url]  
+Source: [url=https://freesound.org/people/f4ngy/sounds/240776/]freesound.org : 240776[/url]  
+Source: [url=https://freesound.org/people/f4ngy/sounds/240777/]freesound.org : 240777[/url]  
+Source: [url=https://freesound.org/people/f4ngy/sounds/240778/]freesound.org : 240778[/url]  
+Source: [url=https://freesound.org/people/f4ngy/sounds/240787/]freesound.org : 240787[/url]  
+License: [url=http://creativecommons.org/licenses/by/3.0/]Attribution 3.0 Unported (CC BY 3.0)[/url]
 
-Fire Sounds
-Author: daenerys  
-Source: freesound.org : 260713  
-License: Attribution 3.0 Unported (CC BY 3.0)
+[b][font_size=24]Fire Sounds[/font_size][/b]
+Author: [url=https://freesound.org/people/daenerys/]daenerys[/url]  
+Source: [url=https://freesound.org/people/daenerys/sounds/260713/]freesound.org : 260713[/url]  
+License: [url=http://creativecommons.org/licenses/by/3.0/]Attribution 3.0 Unported (CC BY 3.0)[/url]
 
-Slicing Flesh Sound
-Author: NeoSpica  
-Source: freesound.org : 504615  
-License: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+[b][font_size=24]Slicing Flesh Sound[/font_size][/b]
+Author: [url=https://freesound.org/people/NeoSpica/]NeoSpica[/url]  
+Source: [url=https://freesound.org/people/NeoSpica/sounds/504615/]freesound.org : 504615[/url]  
+License: [url=https://creativecommons.org/publicdomain/zero/1.0/]CC0 1.0 Universal (CC0 1.0) Public Domain Dedication[/url]
 
-Shield Hit Sound
-Author: daenerys  
-Source: freesound.org : 333941  
-License: Attribution 3.0 Unported (CC BY 3.0)  
+[b][font_size=24]Shield Hit Sound[/font_size][/b]
+Author: [url=https://freesound.org/people/igorzets/]daenerys[/url]  
+Source: [url=https://freesound.org/people/igorzets/sounds/333941/]freesound.org : 333941[/url]  
+License: [url=http://creativecommons.org/licenses/by/3.0/]Attribution 3.0 Unported (CC BY 3.0)[/url]  
 
-Images
-Title Screen Background
-Author: Fighter Vectors by Vecteezy   
-Source: vecteezy.com : 134426-wushu-fighter-with-sword  
-License: Custom Free Attribution License
+[b][font_size=32]Images[/font_size][/b]
+[b][font_size=24]Title Screen Background[/font_size][/b]
+Author: [url=https://www.vecteezy.com/free-vector/fighter]Fighter Vectors by Vecteezy[/url]   
+Source: [url=https://www.vecteezy.com/vector-art/134426-wushu-fighter-with-sword]vecteezy.com : 134426-wushu-fighter-with-sword[/url]  
+License: [url=https://www.vecteezy.com/licensing-agreement]Custom Free Attribution License[/url]
 
-Icons
-Card Icons and Status Effects
-Author: Lorc, Delapouite, and contributors  
-Source: Game-icons.net  
-License: Attribution 3.0 Unported (CC BY 3.0)  
+[b][font_size=32]Icons[/font_size][/b]
+[b][font_size=24]Card Icons and Status Effects[/font_size][/b]
+Author: [url=https://game-icons.net/about.html#authors]Lorc, Delapouite, and contributors[/url]  
+Source: [url=https://game-icons.net/]Game-icons.net[/url]  
+License: [url=https://creativecommons.org/licenses/by/3.0/]Attribution 3.0 Unported (CC BY 3.0)[/url]  
 
-Fire Sprite2D Art
-Author: Font Awesome  
-Source: fontawesome.com  
-License: Attribution 4.0 International (CC BY 4.0)  
+[b][font_size=24]Fire Sprite Art[/font_size][/b]
+Author: [url=https://fontawesome.com/]Font Awesome[/url]  
+Source: [url=https://fontawesome.com/]fontawesome.com[/url]  
+License: [url=https://creativecommons.org/licenses/by/4.0/]Attribution 4.0 International (CC BY 4.0)[/url]  
 
-Programmer Art
-Author: Maaack  
-Source: Github  
-License: CC0 1.0 Universal (CC0 1.0)
-Public Domain Dedication
+[b][font_size=32]Programmer Art[/font_size][/b]
+Author: [url=https://github.com/Maaack]Maaack[/url]  
+Source: [url=https://github.com/Maaack/Battle-Deck-Energy]Github[/url]  
+License: [url=https://creativecommons.org/publicdomain/zero/1.0/]CC0 1.0 Universal (CC0 1.0)
+Public Domain Dedication[/url]
 
-Development Tools
-Godot
-Author: Juan Linietsky, Ariel Manzur, and contributors  
-Source: godotengine.org  
-License: MIT License 
+[b][font_size=48]Development Tools[/font_size][/b]
+[b][font_size=24]Godot[/font_size][/b]
+Author: [url=https://godotengine.org/contact]Juan Linietsky, Ariel Manzur, and contributors[/url]  
+Source: [url=https://godotengine.org/]godotengine.org[/url]  
+License: [url=https://github.com/godotengine/godot/blob/master/LICENSE.txt]MIT License[/url] 
 
-Git
-Author: Linus Torvalds  
-Source: git-scm.com  
-License: GNU General Public License version 2
+[b][font_size=24]Git[/font_size][/b]
+Author: [url=https://github.com/torvalds]Linus Torvalds[/url]  
+Source: [url=https://git-scm.com/downloads]git-scm.com[/url]  
+License: [url=https://opensource.org/licenses/GPL-2.0]GNU General Public License version 2[/url]
 
-PyCharm
-Author: Jet Brains  
-Source: jetbrains.com  
-License: Copyright © 2000-2020 JetBrains s.r.o
+[b][font_size=24]PyCharm[/font_size][/b]
+Author: [url=https://www.jetbrains.com/]Jet Brains[/url]  
+Source: [url=https://www.jetbrains.com/pycharm/download/]jetbrains.com[/url]  
+License: [url=https://www.jetbrains.com/]Copyright © 2000-2020 JetBrains s.r.o[/url]
 
-GIMP
-Author: Spencer Kimball, Peter Mattis, and contributors  
-Source: gimp.org  
-License: GNU General Public License version 3
+[b][font_size=24]GIMP[/font_size][/b]
+Author: [url=https://www.gimp.org/about/authors.html]Spencer Kimball, Peter Mattis, and contributors[/url]  
+Source: [url=https://www.gimp.org/downloads/]gimp.org[/url]  
+License: [url=https://www.gimp.org/about/COPYING]GNU General Public License version 3[/url]
 
-Inkscape
-Source: inkscape.org  
-License: GNU General Public License
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[b][font_size=24]Inkscape[/font_size][/b]
+Source: [url=https://inkscape.org/release/]inkscape.org[/url]  
+License: [url=https://inkscape.org/about/license/]GNU General Public License[/url]
 "
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 selection_enabled = true
+script = ExtResource("9_cqi0y")
+attribution_file_path = "res://ATTRIBUTION.md"
+h1_font_size = 64
+h2_font_size = 48
+h3_font_size = 32
+h4_font_size = 24
+h5_font_size = 16
+h6_font_size = 12
+bold_headings = true
+
+[node name="Footer" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1152266373]
+custom_minimum_size = Vector2(0, 720)
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="ScrollResetTimer" type="Timer" parent="." unique_id=22274681]
 wait_time = 1.5
@@ -242,7 +189,7 @@ focus_mode = 0
 text = "Continue"
 
 [connection signal="scroll_ended" from="ScrollContainer" to="." method="_on_ScrollContainer_scroll_ended"]
-[connection signal="gui_input" from="ScrollContainer/RichTextLabel" to="." method="_on_RichTextLabel_gui_input"]
-[connection signal="meta_clicked" from="ScrollContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="gui_input" from="ScrollContainer/VBoxContainer/CreditsTextLabel" to="." method="_on_RichTextLabel_gui_input"]
+[connection signal="meta_clicked" from="ScrollContainer/VBoxContainer/CreditsTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="timeout" from="ScrollResetTimer" to="." method="_on_ScrollResetTimer_timeout"]
 [connection signal="pressed" from="ContinueButton" to="." method="_on_ContinueButton_pressed"]

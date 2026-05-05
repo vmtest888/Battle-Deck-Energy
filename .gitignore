@@ -5,6 +5,7 @@ export.cfg
 export_presets.cfg
 exports/
 Exports/
+Assets/Sourced/Music/Ovani
 
 # Imported translations (automatically generated from CSV files)
 *.translation
