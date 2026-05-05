@@ -4,71 +4,21 @@ extends Control
 signal continue_pressed
 
 @onready var scroll_container = $ScrollContainer
-@onready var rich_text_label = $ScrollContainer/RichTextLabel
 @onready var scroll_timer = $ScrollResetTimer
 
-@export var attribution_file_path: String = "res://ATTRIBUTION.md": set = set_file_path
-@export var h1_font: FontFile
-@export var h2_font: FontFile
-@export var h3_font: FontFile
-@export var h4_font: FontFile
-@export var lines_prefixed: int = 22
-@export var lines_suffixed: int = 32
 @export var max_speed_down: float = 5.0
 @export var accel_down: float = 0.01
 
 var current_speed : float = 1
-
-func load_file(file_path:String):
-	if file_path.is_empty(): return ""
-	var file = FileAccess.open(file_path, FileAccess.READ)
-	var text : String = file.get_as_text()
-	file.close()
-	return text
-
-func regex_replace_urls(credits:String):
-	var regex = RegEx.new()
-	var match_string : String = "\\[([^\\]]*)\\]\\(([^\\)]*)\\)"
-	var replace_string : String = "[url=$2]$1[/url]"
-	regex.compile(match_string)
-	return regex.sub(credits, replace_string, true)
-
-func regex_replace_titles(credits:String):
-	var iter = 0
-	var heading_fonts : Array = [h1_font, h2_font, h3_font, h4_font]
-	for heading_font in heading_fonts:
-		if heading_font is FontFile:
-			iter += 1
-			var regex = RegEx.new()
-			var match_string : String = "([^#])#{%d}\\s([^\n]*)" % iter
-			var replace_string : String = "$1[font=%s]$2[/font]" % [heading_font.resource_path]
-			regex.compile(match_string)
-			credits = regex.sub(credits, replace_string, true)
-	return credits
-
-func set_file_path(value:String):
-	attribution_file_path = value
-	var text : String = load_file(attribution_file_path)
-	if text == "":
-		return
-	text = text.right(text.find("\n")) # Trims first line "ATTRIBUTION"
-	text = regex_replace_urls(text)
-	text = regex_replace_titles(text)
-	var prefix_lines = "\n".repeat(lines_prefixed)
-	var suffix_lines = "\n".repeat(lines_suffixed)
-	rich_text_label.text = "%s[center]%s[/center]%s" % [prefix_lines, text, suffix_lines]
-
-func _ready():
-	attribution_file_path = attribution_file_path
 
 func _process(_delta):
 	current_speed += accel_down
 	if current_speed > max_speed_down:
 		current_speed = max_speed_down
 	if round(current_speed) > 0:
-		var previous_scroll = $ScrollContainer.scroll_vertical
-		$ScrollContainer.scroll_vertical += round(current_speed)
-		if previous_scroll == $ScrollContainer.scroll_vertical:
+		var previous_scroll = scroll_container.scroll_vertical
+		scroll_container.scroll_vertical += round(current_speed)
+		if previous_scroll == scroll_container.scroll_vertical:
 			set_process(false)
 
 func _on_RichTextLabel_gui_input(event):
