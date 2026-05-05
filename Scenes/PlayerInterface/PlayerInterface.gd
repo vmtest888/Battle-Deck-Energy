@@ -30,7 +30,6 @@ var effect_text_animation_scene = preload("res://Scenes/PlayerInterface/BattleBo
 var player_data : CharacterData: set = set_player_data
 var _drawing_cards_count : int = 0
 var _discarding_cards_count : int = 0
-var _opportunities_map : Dictionary = {}
 var _character_statuses_map : Dictionary = {}
 var _card_owner_map : Dictionary = {}
 var _nearest_opportunity = null
@@ -368,16 +367,16 @@ func _openings_glow_off(card:CardData):
 		if container is OpportunitiesContainer:
 			container.glow_off()
 
-func get_nearest_card_opportunity(card:CardData, position = null):
-	if position == null:
-		position = card.transform_data.position
+func get_nearest_card_opportunity(card:CardData, from_position = null):
+	if from_position == null:
+		from_position = card.transform_data.position
 	var shortest_distance : float = opportunity_snap_range
 	var nearest_opportunity = null
 	for opportunity in get_player_card_opportunities(card):
 		if opportunity is OpportunityData:
 			var opportunity_transform : TransformData = opportunity.transform_data
-			if opportunity_transform.position.distance_to(position) < shortest_distance:
-				shortest_distance = opportunity_transform.position.distance_to(position)
+			if opportunity_transform.position.distance_to(from_position) < shortest_distance:
+				shortest_distance = opportunity_transform.position.distance_to(from_position)
 				nearest_opportunity = opportunity
 	return nearest_opportunity
 

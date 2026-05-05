@@ -14,7 +14,7 @@ signal continue_pressed
 
 var current_speed : float = 1
 
-func _process(delta):
+func _process(_delta):
 	current_speed += accel_down
 	if current_speed > max_speed_down:
 		current_speed = max_speed_down

@@ -145,7 +145,7 @@ func _resolve_status(status:StatusData, mod:float, effect_type:String, source:Ch
 	var source_statuses = _get_character_statuses(source, character_manager_map)
 	var target_statuses = _get_character_statuses(target, character_manager_map)
 	var status_quantity : int = modified_status.get_stack_value()
-	status_quantity *= mod
+	status_quantity = floor(status_quantity * mod)
 	status_quantity = effect_calculator.get_effect_total(status_quantity, effect_type, source_statuses, target_statuses)
 	modified_status.set_stack_value(status_quantity)
 	if modified_status is RelatedStatusData:

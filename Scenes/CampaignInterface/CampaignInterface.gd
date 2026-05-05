@@ -36,7 +36,7 @@ func _attach_deck_view(deck_viewer:DeckViewer):
 	deck_view_container.add_child(deck_viewer)
 	deck_viewer.connect("back_pressed", Callable(self, "_remove_deck_view").bind(deck_viewer))
 
-func start_battle(current_level:BattleLevelData):
+func start_battle(battle_level:BattleLevelData):
 	if is_instance_valid(battle_interface):
 		print("Warning: Previous battle has not cleared.")
 		battle_interface.queue_free()
@@ -48,7 +48,7 @@ func start_battle(current_level:BattleLevelData):
 	battle_interface.connect("player_won", Callable(self, "_on_BattleInterface_player_won"))
 	battle_interface.connect("view_deck_pressed", Callable(self, "_on_ViewDeck_pressed"))
 	battle_interface.add_character(player_data, PLAYER_TEAM)
-	for opponent in current_level.opponents:
+	for opponent in battle_level.opponents:
 		battle_interface.add_character(opponent.duplicate(), ENEMY_TEAM)
 	battle_interface.player_character = player_data
 	battle_shadow_panel.hide()
@@ -62,11 +62,11 @@ func start_shelter():
 	shelter_interface.connect("level_completed", Callable(self, "_unload_levels_and_continue"))
 	shelter_interface.connect("bath_pressed", Callable(self, "_attach_deck_view"))
 
-func start_story_level(current_level:StoryLevelData):
+func start_story_level(story_level:StoryLevelData):
 	battle_shadow_panel.show()
 	var story_interface = story_panel_scene.instantiate()
 	campaign_interface_container.add_child(story_interface)
-	story_interface.set_text(current_level.text)
+	story_interface.set_text(story_level.text)
 	story_interface.connect("continue_pressed", Callable(self, "_start_next_level"))
 
 func start_credits():

@@ -81,5 +81,5 @@ func _on_status_inspected(status_icon:StatusIcon):
 	var keys : Array = [status_icon.status_data.type_tag]
 	show_definitions(keys, list_position)
 
-func _on_status_restored(status_icon:StatusIcon):
+func _on_status_restored(_status_icon:StatusIcon):
 	reset()

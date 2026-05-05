@@ -58,16 +58,16 @@ func get_transform_array():
 
 func spread_positions_from_index(transform_array:Array, card_index:int):
 	var index : int = 0
-	for transform in transform_array:
-		if transform is TransformData:
+	for transform_data in transform_array:
+		if transform_data is TransformData:
 			if index != card_index:
 				var hand_distance = abs(index - card_index)
 				var fan_distance = fan_cards_from_center / hand_distance
-				transform.position += Vector2(fan_distance * sign(index - card_index), 0)
+				transform_data.position += Vector2(fan_distance * sign(index - card_index), 0)
 			else:
-				transform.position += offset_nearest_card
-				transform.scale = scale_nearest_card
-				transform.rotation = 0.0
+				transform_data.position += offset_nearest_card
+				transform_data.scale = scale_nearest_card
+				transform_data.rotation = 0.0
 		index += 1
 	return transform_array
 
@@ -92,8 +92,8 @@ func get_nearest_index(input_position:Vector2):
 	var shortest_distance : float = ignore_mouse_range
 	var index : int = 0
 	for card_key in cards:
-		var transform : TransformData = cards[card_key]
-		var diff : Vector2 = transform.position - input_position
+		var transform_data : TransformData = cards[card_key]
+		var diff : Vector2 = transform_data.position - input_position
 		var distance : float = diff.length()
 		if distance < shortest_distance:
 			shortest_distance = distance
