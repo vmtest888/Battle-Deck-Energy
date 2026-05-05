@@ -12,7 +12,6 @@ signal card_reshuffled(character, card)
 signal card_revealed(character, card)
 signal card_played(character, card, opportunity)
 signal card_spawned(character, card)
-signal status_updated(character, status, delta)
 signal before_hand_discarded(character)
 signal before_hand_drawn(character)
 signal team_lost(team)
@@ -60,7 +59,6 @@ func _connect_character_battle_manager(character_battle_manager : CharacterBattl
 	character_battle_manager.connect("card_played", _on_CharacterBattleManager_card_played)
 	character_battle_manager.connect("card_removed_from_hand", _on_CharacterBattleManager_card_removed_from_hand)
 	character_battle_manager.connect("card_reshuffled", _on_CharacterBattleManager_card_reshuffled)
-	character_battle_manager.connect("status_updated", _on_CharacterBattleManager_status_updated)
 	character_battle_manager.connect("related_status_changed", _on_CharacterBattleManager_related_status_changed)
 
 func add_character(character_data : CharacterData, team : String):
@@ -209,9 +207,6 @@ func _on_CharacterBattleManager_card_revealed(character : CharacterData, card : 
 func _on_turn_ended(character : CharacterData):
 	if character == active_character:
 		advance_character_phase()
-
-func _on_CharacterBattleManager_status_updated(character : CharacterData, status, delta):
-	emit_signal("status_updated", character, status, delta)
 
 func _on_CharacterBattleManager_related_status_changed(character : CharacterData, status, origin):
 	_on_EffectManager_apply_status(character, status, origin)

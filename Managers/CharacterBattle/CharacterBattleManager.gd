@@ -12,7 +12,6 @@ signal card_discarded(character, card)
 signal card_exhausted(character, card)
 signal card_reshuffled(character, card)
 signal card_played(character, card, opportunity)
-signal status_updated(character, status, delta)
 signal related_status_changed(character, status, origin)
 
 @onready var status_manager : StatusManager = $StatusManager
@@ -22,7 +21,11 @@ var defense_status_resource = preload("res://Resources/Statuses/Defense.tres")
 var health_status_base = preload("res://Resources/Statuses/Health.tres")
 var energy_status_base = preload("res://Resources/Statuses/Energy.tres")
 
-var character_data : CharacterData
+var character_data : CharacterData : 
+	set(value):
+		character_data = value
+		if is_inside_tree():
+			status_manager.character = character_data
 var starting_energy : int = 0
 var current_energy : int = 0
 var draw_pile : DeckData = DeckData.new()
@@ -61,6 +64,9 @@ func get_energy_status_snapshot():
 	energy_status_snapshot.intensity = current_energy
 	return energy_status_snapshot
 
+func _ready():
+	character_data = character_data
+
 func reset():
 	_reset_draw_pile()
 	_reset_discard_pile()
@@ -70,24 +76,24 @@ func reset():
 func gain_health(amount: int = 1):
 	character_data.health += amount
 	var health_status_snapshot = get_health_status_snapshot()
-	emit_signal("status_updated", character_data, health_status_snapshot, amount)
+	EventBus.status_updated.emit(character_data, health_status_snapshot, amount, true)
 
 func lose_health(amount: int = 1):
 	amount = min(character_data.health, amount)
 	character_data.health -= amount
 	var health_status_snapshot = get_health_status_snapshot()
-	emit_signal("status_updated", character_data, health_status_snapshot, -(amount))
+	EventBus.status_updated.emit(character_data, health_status_snapshot, -(amount), true)
 
 func gain_energy(amount:int = 1):
 	current_energy += amount
 	var energy_status_snapshot = get_energy_status_snapshot()
-	emit_signal("status_updated", character_data, energy_status_snapshot, amount)
+	EventBus.status_updated.emit(character_data, energy_status_snapshot, amount, true)
 
 func lose_energy(amount:int = 1):
 	amount = min(current_energy, amount)
 	current_energy -= amount
 	var energy_status_snapshot = get_energy_status_snapshot()
-	emit_signal("status_updated", character_data, energy_status_snapshot, -(amount))
+	EventBus.status_updated.emit(character_data, energy_status_snapshot, -(amount), false)
 
 func reshuffle_card(card:CardData):
 	draw_pile.add_card(card)
@@ -198,7 +204,7 @@ func has_statuses():
 	return status_manager.has_statuses()
 
 func update_earliest_buff_statuses():
-	status_manager.decrement_durations(StatusData.StatusType.EARLIEST_BUFF)
+	status_manager.decrement_durations(StatusData.StatusType.EARLIEST_BUFF, false)
 
 func update_early_curse_statuses():
 	_update_poison_status()
@@ -243,9 +249,6 @@ func get_related_status(type_tag:String, related:CharacterData, is_target : bool
 
 func has_status(type_tag:String, _source = null):
 	return get_status(type_tag) != null
-
-func _on_StatusManager_status_updated(status:StatusData, delta:int):
-	emit_signal("status_updated", character_data, status, delta)
 
 func _on_StatusManager_related_status_changed(related_character, status, delta):
 	emit_signal("related_status_changed", related_character, status, character_data)

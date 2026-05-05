@@ -3,13 +3,13 @@ extends Node
 
 class_name StatusManager
 
-signal status_updated(status, delta)
 signal related_status_changed(character, status, delta)
 
 var status_map : Dictionary = {}
 var source_related_status_map : Dictionary = {}
 var target_related_status_map : Dictionary = {}
 var related_status_character_map : Dictionary = {}
+var character : CharacterData
 
 func has_statuses():
 	return status_map.size() > 0 
@@ -68,7 +68,7 @@ func gain_status(status:StatusData, is_target: bool = true):
 	var manager_status = get_manager_status(status, is_target)
 	var stack_delta = status.get_stack_value()
 	manager_status.add_to_stack(stack_delta)
-	emit_signal("status_updated", manager_status.duplicate(), stack_delta)
+	EventBus.status_updated.emit(character, manager_status.duplicate(), stack_delta, true)
 	if manager_status.get_stack_value() == 0:
 		lose_status(status)
 
@@ -93,12 +93,12 @@ func _duplicate_relating_status(status:RelatedStatusData):
 	related_status.relating_status = status
 	return related_status
 
-func decrement_duration(status:StatusData):
+func decrement_duration(status:StatusData, animate:bool = true):
 	var delta : int = -1
 	if status.has_the_d():
 		status.duration += delta
 		if status.stacks_the_d():
-			emit_signal("status_updated", status.duplicate(), delta)
+			EventBus.status_updated.emit(character, status, delta, animate)
 			if status is RelatedStatusData:
 				var related_character = related_status_character_map[status]
 				var related_status : RelatedStatusData = _duplicate_relating_status(status)
@@ -107,7 +107,7 @@ func decrement_duration(status:StatusData):
 		else:
 			var diff : int = -(status.get_stack_value())
 			status.reset_stack()
-			emit_signal("status_updated", status.duplicate(), diff)
+			EventBus.status_updated.emit(character, status.duplicate(), diff, animate)
 			if status is RelatedStatusData:
 				var related_character = related_status_character_map[status]
 				var related_status : RelatedStatusData = _duplicate_relating_status(status)
@@ -116,7 +116,7 @@ func decrement_duration(status:StatusData):
 		if not status.has_the_d():
 			lose_status(status)
 
-func decrement_durations(status_type:StatusData.StatusType):
+func decrement_durations(status_type:StatusData.StatusType, animate:bool = true):
 	var statuses : Array = status_map.values()
 	for status in statuses:
 		if status is StatusData:
@@ -125,4 +125,4 @@ func decrement_durations(status_type:StatusData.StatusType):
 			if status.get_stack_value() == 0:
 				lose_status(status)
 				continue
-			decrement_duration(status)
+			decrement_duration(status, animate)

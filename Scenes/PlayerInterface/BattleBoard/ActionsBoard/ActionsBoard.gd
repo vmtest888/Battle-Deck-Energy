@@ -80,11 +80,11 @@ func remove_all_opportunities():
 	opportunity_container_map.clear()
 	opportunities.clear()
 
-func update_status(character:CharacterData, status:StatusData):
+func update_status(character:CharacterData, status:StatusData, show_update:bool=true):
 	var interface : CharacterActionsInterface = get_actions_instance(character)
 	if not is_instance_valid(interface):
 		return
-	interface.update_status(status)
+	interface.update_status(status, show_update)
 	return interface
 
 func mark_character_active(character:CharacterData):
