@@ -15,8 +15,15 @@ const SKILL_TYPE = 'SKILL'
 @onready var slot_2_node = $CenterContainer/Control/Slot1/Slot2
 @onready var slot_1_node = $CenterContainer/Control/Slot1
 
-var type_map : Dictionary = {}
+@export var cost_color : Color
+
+var type_map : Dictionary[CardData.CardType, int] = {}
 var opportunities_map : Dictionary = {}
+var opportunity_cost : Dictionary[CardData.CardType, int]
+
+func refresh() -> void:
+	_update_label()
+	_update_slots()
 
 func _update_label():
 	var final_label : String = ""
@@ -33,7 +40,11 @@ func _update_label():
 				label = DEFEND_TYPE
 			(CardData.CardType.SKILL):
 				label = SKILL_TYPE
-		final_label += "%s%d %s" % [separator, count, label]
+		if type in opportunity_cost and opportunity_cost[type] > 0:
+			var minimum_remaining := maxi(count-opportunity_cost[type], 0)
+			final_label += "%s[color=%s]%d[/color] %s" % [separator, cost_color.to_html(), minimum_remaining, label]
+		else:
+			final_label += "%s%d %s" % [separator, count, label]
 		separator = "\n-\n"
 	label_node.text = final_label
 
@@ -60,8 +71,7 @@ func add_opportunity(opportunity:OpportunityData):
 	type_map[type] += 1
 	opportunity.transform_data.scale = get_transform().get_scale()
 	emit_signal("update_opportunity", opportunity, self)
-	_update_label()
-	_update_slots()
+	refresh()
 
 func remove_opportunity(opportunity:OpportunityData):
 	if not opportunity in opportunities_map:
@@ -70,8 +80,11 @@ func remove_opportunity(opportunity:OpportunityData):
 	if type in type_map:
 		type_map[type] -= 1
 	opportunities_map.erase(opportunity)
-	_update_label()
-	_update_slots()
+	refresh()
+
+func get_type_count(type_tag:CardData.CardType) -> int:
+	if type_tag not in type_map: return 0
+	return type_map[type_tag]
 
 func glow_on():
 	if opportunities_map.size() == 0: return
