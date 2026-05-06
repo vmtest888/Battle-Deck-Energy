@@ -42,8 +42,12 @@ func _update_label():
 				label = SKILL_TYPE
 		if type in opportunity_cost and opportunity_cost[type] > 0:
 			var minimum_remaining := maxi(count-opportunity_cost[type], 0)
+			if minimum_remaining != 1:
+				label += "S"
 			final_label += "%s[color=%s]%d[/color] %s" % [separator, cost_color.to_html(), minimum_remaining, label]
 		else:
+			if count != 1:
+				label += "S"
 			final_label += "%s%d %s" % [separator, count, label]
 		separator = "\n-\n"
 	label_node.text = final_label
