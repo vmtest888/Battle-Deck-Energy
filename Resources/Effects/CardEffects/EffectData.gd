@@ -12,6 +12,9 @@ enum TeamAimMode{SINGLE, TEAMMATES, ALL, ALL_ENEMIES}
 @export var apply_mode: ApplyMode = ApplyMode.PLAY
 @export var aim_mode: AimMode = AimMode.TARGET
 @export var team_aim_mode: TeamAimMode = TeamAimMode.SINGLE
+@export_group("Extras")
+@export var prefix: String = ""
+@export var suffix: String = ""
 
 func _to_string():
 	return "EffectData:%d,%s" % [get_instance_id(), type_tag]

@@ -10,7 +10,7 @@
 script = ExtResource("5_e0xtg")
 title = "A Thousand Cuts"
 description = "Deal %ATTACK Damage over [b]5[/b] strikes.
-Max Combo."
+%MAX_COMBO_EFFECT Combo."
 energy_cost = 3
 icon = ExtResource("4_51lgk")
 base_color = Color(0.615686, 0.188235, 0.231373, 1)

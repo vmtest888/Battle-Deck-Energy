@@ -6,3 +6,4 @@
 script = ExtResource("1_y2cfa")
 type_tag = "COMBO_EFFECT"
 amount = 3
+suffix = "x"

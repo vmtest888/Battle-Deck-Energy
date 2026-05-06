@@ -10,7 +10,7 @@
 script = ExtResource("5_cxv1e")
 title = "Preprocess"
 description = "Next turn, add %APPLY_FOCUSED Skill actions.
-Max Combo."
+%MAX_COMBO_EFFECT Combo."
 energy_cost = 0
 icon = ExtResource("4_2rh8a")
 base_color = Color(0.494118, 0.768627, 0.756863, 1)

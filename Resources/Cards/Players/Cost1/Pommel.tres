@@ -10,7 +10,7 @@
 script = ExtResource("5_e711r")
 title = "Pommel"
 description = "Deal %ATTACK Damage.
-Max Combo."
+%MAX_COMBO_EFFECT Combo."
 icon = ExtResource("4_3ijte")
 base_color = Color(0.615686, 0.188235, 0.231373, 1)
 effects = Array[ExtResource("1_i8ihm")]([ExtResource("2_c4xgb"), ExtResource("3_6cvmu")])

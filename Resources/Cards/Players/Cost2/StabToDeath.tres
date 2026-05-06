@@ -10,7 +10,7 @@
 script = ExtResource("1")
 title = "Stab to Death"
 description = "Deal %ATTACK Damage over [b]3[/b] strikes.
-Max Combo."
+%MAX_COMBO_EFFECT Combo."
 energy_cost = 2
 icon = ExtResource("4_euamq")
 base_color = Color(0.615686, 0.188235, 0.231373, 1)

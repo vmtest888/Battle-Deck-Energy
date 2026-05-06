@@ -6,3 +6,4 @@
 script = ExtResource("1_v6h2s")
 type_tag = "COMBO_EFFECT"
 amount = 2
+suffix = "x"

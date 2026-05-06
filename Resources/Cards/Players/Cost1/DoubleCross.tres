@@ -12,7 +12,7 @@ script = ExtResource("5_x423g")
 title = "Double-Cross"
 description = "Deal %ATTACK Damage.
 Add %ADD_THROW_KNIFE Throw Knife to your hand.
-Combo %COMBO_EFFECTx."
+%COMBO_EFFECT Combo."
 icon = ExtResource("5_y055d")
 base_color = Color(0.615686, 0.188235, 0.231373, 1)
 effects = Array[ExtResource("1_cpqot")]([ExtResource("2_5e1a0"), ExtResource("3_cpqot"), ExtResource("4_mpawk")])
