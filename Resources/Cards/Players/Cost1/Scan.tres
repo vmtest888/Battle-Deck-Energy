@@ -10,7 +10,7 @@
 script = ExtResource("1")
 title = "Scan"
 description = "Apply %APPLY_MARKED Marked to all enemies.
-Max Combo."
+%MAX_COMBO_EFFECT Combo."
 icon = ExtResource("3")
 base_color = Color(0.494118, 0.768627, 0.756863, 1)
 effects = Array[ExtResource("1_v64nx")]([ExtResource("2"), ExtResource("3_xxyw7")])

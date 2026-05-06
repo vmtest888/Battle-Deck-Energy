@@ -10,7 +10,7 @@
 script = ExtResource("1")
 title = "Lethal Needle"
 description = "Apply %APPLY_POISONED Poisoned.
-Max Combo."
+%MAX_COMBO_EFFECT Combo."
 icon = ExtResource("2")
 base_color = Color(0.615686, 0.188235, 0.231373, 1)
 effects = Array[ExtResource("1_43x8f")]([ExtResource("2_43x8f"), ExtResource("4_43x8f")])

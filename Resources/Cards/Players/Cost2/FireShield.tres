@@ -12,7 +12,7 @@ script = ExtResource("6_5hg8q")
 title = "Fire Shield"
 description = "Block %DEFEND Damage.
 Next turn, gain %APPLY_CHARGED Energy.
-Combo %COMBO_EFFECTx."
+%COMBO_EFFECT Combo."
 energy_cost = 2
 icon = ExtResource("4_isskn")
 base_color = Color(0.392157, 0.490196, 0.203922, 1)

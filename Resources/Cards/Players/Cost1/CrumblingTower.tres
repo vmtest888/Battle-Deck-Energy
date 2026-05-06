@@ -12,7 +12,7 @@ script = ExtResource("6_h3t6p")
 title = "Crumbling Tower"
 description = "Block %DEFEND Damage.
 Exhaust.
-Combo %COMBO_EFFECTx."
+%COMBO_EFFECT Combo."
 icon = ExtResource("5_ccsoe")
 base_color = Color(0.392157, 0.490196, 0.203922, 1)
 effects = Array[ExtResource("1_vih1c")]([ExtResource("2_lxkey"), ExtResource("3_vpcec"), ExtResource("4_t8jkv")])

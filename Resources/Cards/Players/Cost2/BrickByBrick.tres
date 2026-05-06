@@ -12,7 +12,7 @@ script = ExtResource("6_etoj4")
 title = "Brick By Brick"
 description = "Block %DEFEND Damage over 2 shields.
 Retain.
-Max Combo.
+%MAX_COMBO_EFFECT Combo.
 "
 energy_cost = 2
 icon = ExtResource("5_m7q4k")

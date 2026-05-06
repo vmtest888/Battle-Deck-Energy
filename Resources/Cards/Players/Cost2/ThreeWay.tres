@@ -12,7 +12,7 @@ script = ExtResource("5_oyxa6")
 title = "Three Way"
 description = "Deal %ATTACK Damage.
 Apply %APPLY_MARKED Marked.
-Combo %COMBO_EFFECTx."
+%COMBO_EFFECT Combo."
 energy_cost = 2
 icon = ExtResource("4_4unot")
 base_color = Color(0.615686, 0.188235, 0.231373, 1)

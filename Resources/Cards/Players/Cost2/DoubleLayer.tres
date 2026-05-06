@@ -12,7 +12,7 @@ script = ExtResource("6_bbg16")
 title = "Double Layer"
 description = "Block %DEFEND Damage.
 Apply %APPLY_DURABLE Durable.
-Combo %COMBO_EFFECTx."
+%COMBO_EFFECT Combo."
 energy_cost = 2
 icon = ExtResource("5_tge8q")
 base_color = Color(0.392157, 0.490196, 0.203922, 1)

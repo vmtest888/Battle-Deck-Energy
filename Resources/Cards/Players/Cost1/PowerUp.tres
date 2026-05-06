@@ -10,7 +10,7 @@
 script = ExtResource("7_djuew")
 title = "Power Up"
 description = "Next turn, gain %APPLY_CHARGED Energy.
-Combo %COMBO_EFFECTx."
+%COMBO_EFFECT Combo."
 icon = ExtResource("4_l8w8s")
 base_color = Color(0.54901963, 0.56078434, 0.68235296, 1)
 effects = Array[ExtResource("1_l8w8s")]([ExtResource("2_ygobi"), ExtResource("3_ygobi")])
