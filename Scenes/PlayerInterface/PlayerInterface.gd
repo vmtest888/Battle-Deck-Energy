@@ -122,7 +122,7 @@ func _on_CardContainer_update_opportunity(opportunity:OpportunityData, container
 		opponent_card_manager.force_move_card(opportunity.card_data, opportunity.transform_data, 0.05)
 
 func _calculate_card_mod(card_instance:CardNode2D, source:CharacterData = null, target:CharacterData = null):
-	var total_values : Dictionary = {}
+	var total_values : Dictionary[String, int] = {}
 	for effect in card_instance.card_data.effects:
 		var base_value = effect.amount
 		var type_tag = effect.type_tag
@@ -138,7 +138,7 @@ func _calculate_card_mod(card_instance:CardNode2D, source:CharacterData = null, 
 			opportunities = get_target_type_opportunities(card_instance.card_data, target)
 		var total_value = effect_calculator.get_effect_total(base_value, type_tag, source_statuses, target_statuses, opportunities)
 		total_values[type_tag] += total_value
-	card_instance.update_card_effects(total_values)
+	card_instance.modified_values = total_values
 	return total_values
 
 func _new_character_card(character:CharacterData, card:CardData):
@@ -338,17 +338,28 @@ func _on_PlayerInterface_gui_input(event):
 				card_manager.move_card(card_node.card_data, nearest_opportunity.transform_data, 0.1)
 			if nearest_opportunity == _nearest_opportunity:
 				return
+			var container : OpportunitiesContainer = null
 			if _nearest_opportunity != null and nearest_opportunity != _nearest_opportunity:
-				var container : OpportunitiesContainer = actions_board.get_opportunity_container(_nearest_opportunity)
+				container = actions_board.get_opportunity_container(_nearest_opportunity)
+				container.opportunity_cost.clear()
+				container.refresh()
 				container.glow_on()
 			_nearest_opportunity = nearest_opportunity
 			var card_owner = _card_owner_map[card_node.card_data]
 			var target = null
 			if nearest_opportunity is OpportunityData:
-				var container : OpportunitiesContainer = actions_board.get_opportunity_container(nearest_opportunity)
+				container = actions_board.get_opportunity_container(nearest_opportunity)
 				container.glow_special()
 				target = nearest_opportunity.target
-			_calculate_card_mod(card_node, card_owner, target)
+			var total_values = _calculate_card_mod(card_node, card_owner, target)
+			if _nearest_opportunity == null or container == null: return
+			if EffectCalculator.COMBO_EFFECT in total_values:
+				container.opportunity_cost = total_values[EffectCalculator.COMBO_EFFECT]
+			elif EffectCalculator.MAX_COMBO_EFFECT in total_values:
+				container.opportunity_cost[card_node.card_data.type] = container.get_type_count(card_node.card_data.type)
+			else:
+				container.opportunity_cost[card_node.card_data.type] = 1
+			container.refresh()
 
 func get_player_card_opportunities(card:CardData):
 	var filtered_opportunities : Dictionary[OpportunityData, OpportunitiesContainer] = {}
@@ -372,11 +383,15 @@ func _openings_glow_on(card:CardData):
 	for container in get_player_card_opportunities(card).values():
 		if container is OpportunitiesContainer:
 			container.glow_on()
+			container.opportunity_cost.clear()
+			container.refresh()
 
 func _openings_glow_off(card:CardData):
 	for container in get_player_card_opportunities(card).values():
 		if container is OpportunitiesContainer:
 			container.glow_off()
+			container.opportunity_cost.clear()
+			container.refresh()
 
 func get_nearest_card_opportunity(card:CardData, from_position = null):
 	if from_position == null:

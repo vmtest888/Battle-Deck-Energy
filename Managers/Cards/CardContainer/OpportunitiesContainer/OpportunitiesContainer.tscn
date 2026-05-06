@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dc23quifcih1x"]
 
-[ext_resource type="PackedScene" uid="uid://daqurm0mdqlcq" path="res://Managers/Cards/CardContainer/CardContainer.tscn" id="1"]
-[ext_resource type="Script" uid="uid://ckpmvi4j35bgl" path="res://Managers/Cards/CardContainer/OpportunitiesContainer/OpportunitiesContainter.gd" id="2"]
-[ext_resource type="Theme" uid="uid://h5betpv16esb" path="res://Themes/Main.tres" id="3"]
-[ext_resource type="StyleBox" uid="uid://cq8ypjbxj6hix" path="res://Themes/StyleBoxes/Cards/OpportunityOutlineStyleBox.tres" id="4"]
-[ext_resource type="FontFile" uid="uid://cg3lf8pe30w47" path="res://Themes/Fonts/Labels/CardSlotTypeDynamicFont.tres" id="5"]
-[ext_resource type="PackedScene" uid="uid://62446gk1nn10" path="res://Scenes/OpportunityContainer/LayeredGlowNodes.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://daqurm0mdqlcq" path="res://Managers/Cards/CardContainer/CardContainer.tscn" id="1_nmkjy"]
+[ext_resource type="Theme" uid="uid://h5betpv16esb" path="res://Themes/Main.tres" id="2_a72uu"]
+[ext_resource type="Script" uid="uid://ckpmvi4j35bgl" path="res://Managers/Cards/CardContainer/OpportunitiesContainer/OpportunitiesContainer.gd" id="3_5x0q3"]
+[ext_resource type="StyleBox" uid="uid://cq8ypjbxj6hix" path="res://Themes/StyleBoxes/Cards/OpportunityOutlineStyleBox.tres" id="4_qiox4"]
+[ext_resource type="FontFile" uid="uid://cg3lf8pe30w47" path="res://Themes/Fonts/Labels/CardSlotTypeDynamicFont.tres" id="5_h6rig"]
+[ext_resource type="PackedScene" uid="uid://62446gk1nn10" path="res://Scenes/OpportunityContainer/LayeredGlowNodes.tscn" id="6_g5y6f"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -16,7 +16,7 @@ border_color = Color(0.960784, 0.929412, 0.729412, 0.501961)
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 
-[node name="OpportunitiesContainter" unique_id=1559716444 instance=ExtResource("1")]
+[node name="OpportunitiesContainter" unique_id=1559716444 instance=ExtResource("1_nmkjy")]
 anchors_preset = 15
 anchor_left = 0.0
 anchor_top = 0.0
@@ -26,8 +26,9 @@ offset_left = 0.0
 offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
-theme = ExtResource("3")
-script = ExtResource("2")
+theme = ExtResource("2_a72uu")
+script = ExtResource("3_5x0q3")
+cost_color = Color(0.6156863, 0.1882353, 0.23137255, 1)
 
 [node name="CenterContainer" parent="." index="0" unique_id=1183389169]
 layout_mode = 1
@@ -46,7 +47,7 @@ offset_left = -88.0
 offset_top = -128.0
 offset_right = 88.0
 offset_bottom = 128.0
-theme_override_styles/panel = ExtResource("4")
+theme_override_styles/panel = ExtResource("4_qiox4")
 
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Control/Slot1" index="0" unique_id=1736483080]
 layout_mode = 0
@@ -57,14 +58,22 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Label" type="Label" parent="CenterContainer/Control/Slot1/MarginContainer" index="0" unique_id=1130560305]
+[node name="Label" type="RichTextLabel" parent="CenterContainer/Control/Slot1/MarginContainer" index="0" unique_id=1022902770]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.960784, 0.929412, 0.729412, 0.501961)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("5")
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/normal_font = ExtResource("5_h6rig")
+theme_override_fonts/bold_font = ExtResource("5_h6rig")
+theme_override_fonts/bold_italics_font = ExtResource("5_h6rig")
+theme_override_fonts/italics_font = ExtResource("5_h6rig")
+theme_override_fonts/mono_font = ExtResource("5_h6rig")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
 text = "1 ATTACK
 -
 1 DEFEND
@@ -91,4 +100,4 @@ offset_left = 187.0
 offset_right = 47.0
 theme_override_styles/panel = SubResource("1")
 
-[node name="LayeredGlowNodes" parent="CenterContainer/Control" parent_id_path=PackedInt32Array(2061532110) index="2" unique_id=1809958906 instance=ExtResource("7")]
+[node name="LayeredGlowNodes" parent="CenterContainer/Control" parent_id_path=PackedInt32Array(2061532110) index="2" unique_id=1809958906 instance=ExtResource("6_g5y6f")]
