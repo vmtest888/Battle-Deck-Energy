@@ -354,7 +354,7 @@ func _on_PlayerInterface_gui_input(event):
 			var total_values = _calculate_card_mod(card_node, card_owner, target)
 			if _nearest_opportunity == null or container == null: return
 			if EffectCalculator.COMBO_EFFECT in total_values:
-				container.opportunity_cost = total_values[EffectCalculator.COMBO_EFFECT]
+				container.opportunity_cost[card_node.card_data.type] = total_values[EffectCalculator.COMBO_EFFECT]
 			elif EffectCalculator.MAX_COMBO_EFFECT in total_values:
 				container.opportunity_cost[card_node.card_data.type] = container.get_type_count(card_node.card_data.type)
 			else:
