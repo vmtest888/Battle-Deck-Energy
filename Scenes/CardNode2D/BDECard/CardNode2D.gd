@@ -102,9 +102,13 @@ func update_affordability(energy:int):
 	else:
 		energy_label.set("theme_override_colors/font_color", unafforadable_color)
 
-func _get_effect_bbtag_string(base_value:int, total_value:int):
+func _get_effect_bbtag_string(base_value:int, total_value:int, effect:EffectData):
 	var modifier_delta = total_value - base_value
-	var bbtag_string = "[%s mod=%d][b]%d[/b][/%s]" % [CARD_EFFECT_TAG, modifier_delta, total_value, CARD_EFFECT_TAG]
+	var bbtag_string : String
+	if total_value > 2^10:
+		bbtag_string = "[b]Max[/b]"
+	else:
+		bbtag_string = "[b]%s[%s mod=%d]%d[/%s]%s[/b]" % [effect.prefix, CARD_EFFECT_TAG, modifier_delta, total_value, CARD_EFFECT_TAG, effect.suffix]
 	return bbtag_string
 
 func _reset_base_values():
@@ -156,9 +160,10 @@ func update_card_effects(total_values:Dictionary):
 	matching_tags.sort_custom(func(a:RegExMatch,b:RegExMatch): return a.get_string().length() > b.get_string().length())
 	for result in matching_tags:
 		var type_tag : String = result.get_string("tag")
+		var effect : EffectData = card_data.get_effect(type_tag)
 		if not type_tag in base_values or not type_tag in total_values:
 			continue
-		var tag_string = _get_effect_bbtag_string(base_values[type_tag], total_values[type_tag])
+		var tag_string = _get_effect_bbtag_string(base_values[type_tag], total_values[type_tag], effect)
 		description = description.replace('%'+type_tag, tag_string)
 	description_label.text = description
 
