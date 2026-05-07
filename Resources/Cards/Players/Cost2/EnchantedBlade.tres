@@ -12,7 +12,7 @@ script = ExtResource("6_n0nxg")
 title = "Enchanted Blade"
 description = "Deal %ATTACK Damage.
 Next turn, gain %APPLY_CHARGED Energy.
-%COMBO_EFFECT Combo"
+%COMBO_EFFECT Combo."
 energy_cost = 2
 icon = ExtResource("5_313f5")
 base_color = Color(0.615686, 0.188235, 0.231373, 1)
