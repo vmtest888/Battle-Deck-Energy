@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://qcyqw1io7uli" path="res://Resources/Cards/CardData.gd" id="1"]
 [ext_resource type="Script" uid="uid://ba4mim8s00bqe" path="res://Resources/Effects/CardEffects/EffectData.gd" id="1_dyryn"]
-[ext_resource type="Resource" uid="uid://k8wtsia1d1uy" path="res://Resources/Effects/StatusEffects/ApplyCindering3.tres" id="2_dyryn"]
+[ext_resource type="Resource" uid="uid://b71c5cx3r4ia" path="res://Resources/Effects/StatusEffects/ApplyCindering2.tres" id="2_dyryn"]
 [ext_resource type="Texture2D" uid="uid://4rbggise3ef7" path="res://Assets/Mixed/CardIcons/SkillGlowNew/Energy/burning-embers.png" id="3"]
 [ext_resource type="Resource" uid="uid://cmvron3duavxe" path="res://Resources/Effects/CardEffects/ExhaustEffect.tres" id="3_dyryn"]
 
