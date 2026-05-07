@@ -133,8 +133,9 @@ func _calculate_card_mod(card_instance:CardNode2D, source:CharacterData = null, 
 			source_statuses = _character_statuses_map[source].values()
 		var target_statuses : Array = [null]
 		var opportunities : Array[OpportunityData] = [null]
-		if target and target in _character_statuses_map:
-			target_statuses = _character_statuses_map[target].values()
+		if target:
+			if target in _character_statuses_map:
+				target_statuses = _character_statuses_map[target].values()
 			opportunities = get_target_type_opportunities(card_instance.card_data, target)
 		var total_value = effect_calculator.get_effect_total(base_value, type_tag, source_statuses, target_statuses, opportunities)
 		total_values[type_tag] += total_value

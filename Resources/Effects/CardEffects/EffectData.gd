@@ -6,12 +6,14 @@ class_name EffectData
 enum ApplyMode{NONE, PLAY, DRAW, DISCARD, EXHAUST}
 enum AimMode{TARGET, SOURCE}
 enum TeamAimMode{SINGLE, TEAMMATES, ALL, ALL_ENEMIES}
+enum AmountMode{VARIABLE, MINIMUM, MAXIMUM}
 
 @export var type_tag: String = ''
 @export var amount: int = 0
 @export var apply_mode: ApplyMode = ApplyMode.PLAY
 @export var aim_mode: AimMode = AimMode.TARGET
 @export var team_aim_mode: TeamAimMode = TeamAimMode.SINGLE
+@export var amount_mode: AmountMode = AmountMode.VARIABLE
 @export_group("Extras")
 @export var prefix: String = ""
 @export var suffix: String = ""
