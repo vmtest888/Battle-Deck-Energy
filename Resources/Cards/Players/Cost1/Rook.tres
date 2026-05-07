@@ -11,7 +11,7 @@
 script = ExtResource("5_6k7on")
 title = "Rook"
 description = "Block %DEFEND Damage.
-Gain %APPLY_BARRICADED Barricaded.
+Apply %APPLY_BARRICADED Barricaded.
 %COMBO_EFFECT Combo."
 icon = ExtResource("4_btw2w")
 base_color = Color(0.392157, 0.490196, 0.203922, 1)
