@@ -99,8 +99,10 @@ func start_fork(left_level:BattleLevelData, right_level:BattleLevelData):
 
 func start_level():
 	PersistentData.save_progress(campaign_seed, player_data, level_manager.current_level)
-	seed(campaign_seed + level_manager.current_level)
+	var random_seed : int = campaign_seed + level_manager.current_level
+	seed(random_seed)
 	var _current_level = level_manager.get_current_level()
+	seed(random_seed)
 	if _current_level is WeightedDataList:
 		_current_level = _current_level.duplicate(true)
 		var level_left : BattleLevelData = _current_level.slice_random_data()
