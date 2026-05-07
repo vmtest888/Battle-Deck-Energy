@@ -105,8 +105,10 @@ func update_affordability(energy:int):
 func _get_effect_bbtag_string(base_value:int, total_value:int, effect:EffectData):
 	var modifier_delta = total_value - base_value
 	var bbtag_string : String
-	if total_value > 2^10:
+	if effect.amount_mode == EffectData.AmountMode.MAXIMUM and total_value == base_value:
 		bbtag_string = "[b]Max[/b]"
+	elif effect.amount_mode == EffectData.AmountMode.MINIMUM and total_value == base_value:
+		bbtag_string = "[b]Min[/b]"
 	else:
 		bbtag_string = "[b]%s[%s mod=%d]%d[/%s]%s[/b]" % [effect.prefix, CARD_EFFECT_TAG, modifier_delta, total_value, CARD_EFFECT_TAG, effect.suffix]
 	return bbtag_string

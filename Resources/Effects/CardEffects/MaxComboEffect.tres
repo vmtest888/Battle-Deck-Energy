@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_av7wd")
 type_tag = "MAX_COMBO_EFFECT"
-amount = 1025
+amount_mode = 2
 suffix = "x"
