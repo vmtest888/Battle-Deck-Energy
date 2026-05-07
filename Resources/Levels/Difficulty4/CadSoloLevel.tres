@@ -7,3 +7,4 @@
 [resource]
 script = ExtResource("4_8ij62")
 opponents = Array[ExtResource("2_titbn")]([ExtResource("3_v46ao")])
+mood_type = "HARD_BATTLE"
