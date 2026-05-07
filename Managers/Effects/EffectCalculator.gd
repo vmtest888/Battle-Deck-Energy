@@ -104,8 +104,11 @@ static func _mod_effect_total_by_statuses(total:float, status_types:Array, statu
 	return total
 
 static func _mod_total_by_opportunities(value:float, type_tag:String, opportunities:Array) -> float:
-	if type_tag in [MAX_COMBO_EFFECT, COMBO_EFFECT]:
-		value = opportunities.size()
+	match type_tag:
+		MAX_COMBO_EFFECT:
+			value = opportunities.size()
+		COMBO_EFFECT:
+			value = min(opportunities.size(), value)
 	return value
 
 static func get_effect_total(base_value:int, type_tag:String, source_statuses:Array, target_statuses:Array = [null], opportunities:Array = [null]):

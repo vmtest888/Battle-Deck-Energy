@@ -11,7 +11,7 @@
 script = ExtResource("1")
 title = "Light Armor"
 description = "Block %DEFEND Damage.
-Add %ADD_DEFEND Defend action.
+Add %ADD_DEFEND Defend actions.
 Innate."
 energy_cost = 0
 icon = ExtResource("5_y7lyt")

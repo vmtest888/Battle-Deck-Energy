@@ -12,7 +12,7 @@
 script = ExtResource("1")
 title = "Heavy Armor"
 description = "Block %DEFEND Damage.
-Add %ADD_DEFEND Defend action.
+Add %ADD_DEFEND Defend actions.
 Innate.
 Retain."
 icon = ExtResource("3")
